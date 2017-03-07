@@ -33,7 +33,7 @@ void MotionMouse(int , int );            //獲取滑鼠按下期間的訊息
 void Display(void);
 Mat SobelEdgeDetect(Mat inputImage)
 {
-    Mat SobelImage;
+    Mat SobelImage; //test
     if(inputImage.type() == CV_8UC3)
     {
         cvtColor(inputImage, inputImage, CV_BGR2GRAY);
