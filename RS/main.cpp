@@ -10,13 +10,25 @@
 #include <cstdio>
 #include <GLUT/glut.h>
 // Also include GLFW to allow for graphical display
+#include <glm.h>
 #include <GLFW/glfw3.h>
+#include <math.h>
+#include <stdlib.h>
 #include <opencv/highgui.h>
 #include <opencv2/core.hpp>
 #include <opencv2/opencv.hpp>
 #include <opencv2/aruco.hpp>
 using namespace cv;
 using namespace std;
+
+typedef struct {
+    unsigned char R, G, B;  /* Red, Green, Blue */
+} Pixel;
+typedef struct {
+    Pixel *pPixel;
+    int xRes, yRes;
+} ColorImage;
+
 int old_rot_x=0;   //剛按下滑鼠時的視窗座標
 int old_rot_y=0;
 
@@ -25,12 +37,59 @@ int rot_y=0;
 
 int record_x=0;      //紀錄上一次旋轉的角度
 int record_y=0;
-
+void setMaterial_RGB(float R, float G, float B);
+void drawOBJ(GLMmodel *obj);
 void WindowSize(int , int );            //負責視窗及繪圖內容的比例
 void Keyboard(unsigned char , int, int );   //獲取鍵盤輸入
 void Mouse(int , int , int , int );         //獲取滑鼠按下和放開時的訊息
 void MotionMouse(int , int );            //獲取滑鼠按下期間的訊息
 void Display(void);
+GLMmodel *TFb = NULL; //香蕉先生
+ColorImage texture;
+GLuint  textureID;
+void clearColorImage(Pixel background, ColorImage *image)
+{
+    int i;
+    
+    if (! image->pPixel) return;
+    for (i=0; i<image->xRes*image->yRes; i++) image->pPixel[i] = background;
+}
+void initColorImage(int xSize, int ySize, ColorImage *image)
+{
+    Pixel p = {0,0,0};
+    image->xRes = xSize;
+    image->yRes = ySize;
+    image->pPixel = (Pixel*) malloc(sizeof(Pixel)*xSize*ySize);
+    clearColorImage(p, image);
+}
+void readPPM(char *filename, ColorImage *image)
+{
+    FILE *inFile = fopen(filename, "rb");
+    char buffer[1024];
+    int xRes, yRes;
+    
+    assert(inFile); /* die if file can't be opened */
+    
+    fgets(buffer, 1024, inFile);
+    if (0 != strncmp(buffer, "P6", 2)) {
+        printf("Sorry, only P6 format is currently supported for PPM files.\n");
+        exit(1);
+    }
+    
+    fgets(buffer, 1024, inFile);
+    while ('#' == buffer[0]) {  // skip the comment lines
+        fgets(buffer, 1024, inFile);
+    }
+    
+    sscanf(buffer, "%d %d", &xRes, &yRes);
+    printf("xRes=%d, yRes = %d\n", xRes, yRes);
+    initColorImage(xRes, yRes, image);
+    
+    fgets(buffer, 1024, inFile); // skip the remaining header lines
+    
+    fread(image->pPixel, 1, 3*image->xRes*image->yRes, inFile );
+    fclose(inFile);
+}
 Mat SobelEdgeDetect(Mat inputImage)
 {
     Mat SobelImage; //test
@@ -53,11 +112,23 @@ Mat SobelEdgeDetect(Mat inputImage)
 int main(int argc, char * argv[]) try
 {
     glutInit(&argc,argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-    glutInitWindowSize(400,400);         //視窗長寬
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    glutInitWindowSize(1000,500);         //視窗長寬
     glutInitWindowPosition(600,80);         //視窗左上角的位置
     glutCreateWindow("這裡是視窗標題");      //建立視窗
-    
+    glEnable(GL_DEPTH_TEST); /* Enable hidden--surface--removal */
+    /* setting up the texture */
+    glEnable(GL_TEXTURE_2D);
+    //glGenTextures(1, textureID);
+    readPPM("/Users/TomCruise/Desktop/Banana.ppm", &texture);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    gluBuild2DMipmaps(GL_TEXTURE_2D, 3,texture.xRes,texture.yRes, GL_RGB, GL_UNSIGNED_BYTE, texture.pPixel);
+    glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+    glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+    glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    TFb = glmReadOBJ( "/Users/TomCruise/Desktop/Banana.obj");
+    glmUnitize(TFb);
     //下面五個是用來指定Callback函數
     glutReshapeFunc(WindowSize);
     glutKeyboardFunc(Keyboard);
@@ -180,17 +251,34 @@ void Display(void)
     glRotatef((float)rot_y+(float)record_y, 1.0, 0.0, 0.0);//以x軸當旋轉軸
     glRotatef((float)rot_x+(float)record_x, 0.0, 1.0, 0.0);//以y軸當旋轉軸
     glBegin(GL_TRIANGLES);
-    glColor3f( 1, 0, 0);glVertex3f( 8.6603, -5, -3); //x,y,z
-    glColor3f( 0, 1, 0);glVertex3f(      0, 10, -3);
-    glColor3f( 0, 0, 1);glVertex3f(-8.6603, -5, -3);
+    glColor3f( 1, 0, 0);glVertex3f( 8.6603, -5, -5); //x,y,z
+    glColor3f( 1, 0, 0);glVertex3f(      0, 10, 0); //上方頂點
+    glColor3f( 1, 0, 0);glVertex3f(-8.6603, -5, -5);
     
-    glColor3f( 1, 0, 0);glVertex3f( 8.6603, -5, 0);
+    glColor3f( 0, 1, 0);glVertex3f( 8.6603, -5, -5);
     glColor3f( 0, 1, 0);glVertex3f(      0, 10, 0);
-    glColor3f( 0, 0, 1);glVertex3f(-8.6603, -5, 0);
+    glColor3f( 0, 1, 0);glVertex3f( 8.6603, -5, 5);
     
-    glColor3f( 1, 0, 0);glVertex3f( 8.6603, -5, 3);
-    glColor3f( 0, 1, 0);glVertex3f(      0, 10, 3);
-    glColor3f( 0, 0, 1);glVertex3f(-8.6603, -5, 3);
+    glColor3f( 0, 0, 1);glVertex3f( 8.6603, -5, 5);
+    glColor3f( 0, 0, 1);glVertex3f(      0, 10, 0);
+    glColor3f( 0, 0, 1);glVertex3f(-8.6603, -5, 5);
+    glPushMatrix();
+    //透明度
+    //glEnable(GL_BLEND);
+    //glDepthMask(GL_FALSE);
+    //glBlendFunc(GL_SRC_ALPHA,GL_ONE);
+    setMaterial_RGB( 250, 235, 215 );
+    glTranslated(0,-1.1,-2.2);
+    //glTranslated(shift[0],shift[1],shift[2]);
+    glScaled(0.5,0.5,0.5);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    glRotatef(90.0,1.0,0.0,0.0);
+    drawOBJ(TFb);
+    //glDisable(GL_ALPHA_TEST);
+    //glDisable(GL_BLEND);
+    //glDepthMask(GL_TRUE);
+    glPopMatrix();
+    glBindTexture(GL_TEXTURE_2D, 0);
     glEnd();
     glutSwapBuffers();
 }
@@ -233,4 +321,66 @@ void MotionMouse(int x, int y)
     rot_x = x - old_rot_x;
     rot_y = y - old_rot_y;
     glutPostRedisplay();
+}
+void drawOBJ( GLMmodel *objs )
+{
+    int i, v;
+    float *p;
+    
+    if (! objs) return;
+    
+    for (i=0; i<objs->numtriangles; i++) {
+        // The current triangle is: myObj->triangles[i]
+        glBegin(GL_TRIANGLES);
+        
+        for (v=0; v<3; v++) {
+            // Process the normals.
+            if (objs->numnormals > 0) {
+                p = & objs->normals[ objs->triangles[i].nindices[v]*3 ];
+                glNormal3fv(p);
+            }
+            
+            // Process the texture coordinates.
+            if (objs->numtexcoords > 0) {
+                p = & objs->texcoords[ objs->triangles[i].tindices[v]*2 ];
+                glTexCoord2fv(p);
+                
+            }
+            
+            // Process the vertices.
+            // Assume that the 3 vertices are P[n0], P[n1], P[n2],
+            // P[] is equivalent to myObj->vertices, and n0,n1,n2 is related to myObj->triangles[i].vindices[0,1,2]
+            p = & objs->vertices[ objs->triangles[i].vindices[v]*3 ];
+            
+            // Set the RGB based on XYZ.
+            // We are assuming that the XYZ are within [-1. 1].
+            //glColor3f( p[0]*0.8+0.2, p[1]*0.8+0.2, p[2]*0.8+0.2 );
+            //setMaterial_RGB( p[0]*0.5+0.5, p[1]*0.5+0.5, p[2]*0.5+0.5 );
+            glVertex3fv( p );
+        }
+        glEnd();
+    }
+}
+void setMaterial_RGB(float R, float G, float B)
+{
+    GLfloat ambient[] = {0.1, 0.1, 0.1, 1};
+    GLfloat diffuse[] = {0.9, 0.9, 0.9, 1};
+    GLfloat specular[] = {0, 0, 0, 1};
+    GLfloat shine = 10.0;
+    
+    ambient[0] *= R;
+    ambient[1] *= G;
+    ambient[2] *= B;
+    diffuse[0] *= R;
+    diffuse[1] *= G;
+    diffuse[2] *= B;
+    
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuse);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular);
+    glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shine);
+    
+    //====== Advanced Usage for Future Experiment ======
+    //glColorMaterial(GL_FRONT, GL_DIFFUSE);
+    //glEnable(GL_COLOR_MATERIAL);
 }
