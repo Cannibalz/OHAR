@@ -86,7 +86,8 @@ int main(int argc, char * argv[]) try
     dev->start(); //start streaming
 
     Mat cameraMatrix, distCoeffs; //相機參數
-    cv::String filename = "/Users/kaofan/Desktop/CameraParas.yml";
+    // cv::String filename = "/Users/kaofan/Desktop/CameraParas.yml";   //Pro
+    cv::String filename = "/Users/TomCruise/Desktop/CameraParas.yml";   //iMac
     Ptr<cv::aruco::Dictionary> dictionary = cv::aruco::getPredefinedDictionary(aruco::DICT_ARUCO_ORIGINAL);
     float markerLength = 0.05f; // length in meters (?) of a marker
     cv::FileStorage fs;
@@ -179,7 +180,7 @@ void Display(void)
     glRotatef((float)rot_y+(float)record_y, 1.0, 0.0, 0.0);//以x軸當旋轉軸
     glRotatef((float)rot_x+(float)record_x, 0.0, 1.0, 0.0);//以y軸當旋轉軸
     glBegin(GL_TRIANGLES);
-    glColor3f( 1, 0, 0);glVertex3f( 8.6603, -5, -3);
+    glColor3f( 1, 0, 0);glVertex3f( 8.6603, -5, -3); //x,y,z
     glColor3f( 0, 1, 0);glVertex3f(      0, 10, -3);
     glColor3f( 0, 0, 1);glVertex3f(-8.6603, -5, -3);
     
