@@ -70,8 +70,8 @@ void glfwObject::glfwDrawTorus(int numMajor, int numMinor, float majorRadius, fl
 void glfwObject::renderMesh()
 {
     glLoadIdentity();
-    glRotatef(glfwObject::getRotationY()/*+(float)record_x*/, 0.0, 1.0, 0.0);//以y軸當旋轉軸
-    glRotatef(glfwObject::getRotationX()/*+(float)record_y*/, 1.0, 0.0, 0.0);//以x軸當旋轉軸
+    glRotatef(glfwObject::getRotationX()/*+(float)record_x*/, 0.0, 1.0, 0.0);//以y軸當旋轉軸
+    glRotatef(glfwObject::getRotationY()/*+(float)record_y*/, 1.0, 0.0, 0.0);//以x軸當旋轉軸
     glBegin(GL_LINES);
     glColor4ub(255,0,0,255);
     glVertex3f(0,0,0);
@@ -92,5 +92,5 @@ void glfwObject::renderMesh()
 void glfwObject::mouseMoveHanding(double xpos, double ypos)
 {
     glfwObject::RotationX = glfwObject::RecordedX - xpos;
-    glfwObject::RotationY = glfwObject::RecordedY - xpos;
+    glfwObject::RotationY = glfwObject::RecordedY - ypos;
 }

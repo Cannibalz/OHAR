@@ -39,7 +39,7 @@ void Display(void);
 glfwObject Torus = glfwObject();
 static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos) //滑鼠控制
 {
-    Torus.mousemoveHanding(xpos, ypos);
+    Torus.mouseMoveHanding(xpos, ypos);
 }
 static void drawTorus(int numMajor, int numMinor, float majorRadius, float minorRadius)
 {
@@ -154,7 +154,7 @@ int main(int argc, char * argv[]) try
     fs["Distortion_Coefficients"] >> distCoeffs;
     // Open a GLFW window to display our output
     glfwInit();
-    GLFWwindow * win = glfwCreateWindow(640,480, "librealsense tutorial #2", nullptr, nullptr);
+    GLFWwindow * win = glfwCreateWindow(1280,970, "librealsense tutorial #2", nullptr, nullptr);
     glfwMakeContextCurrent(win);
     while(!glfwWindowShouldClose(win))
     {
