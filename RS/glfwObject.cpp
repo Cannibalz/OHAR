@@ -69,7 +69,7 @@ void glfwObject::glfwDrawTorus(int numMajor, int numMinor, float majorRadius, fl
 }
 void glfwObject::renderMesh()
 {
-    glLoadIdentity();
+    glLoadIdentity();//移動中心
     glRotatef(glfwObject::getRotationX()/*+(float)record_x*/, 0.0, 1.0, 0.0);//以y軸當旋轉軸
     glRotatef(glfwObject::getRotationY()/*+(float)record_y*/, 1.0, 0.0, 0.0);//以x軸當旋轉軸
     glBegin(GL_LINES);
