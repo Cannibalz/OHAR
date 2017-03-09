@@ -15,6 +15,9 @@
 #include <math.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <opencv/highgui.h>
+#include <opencv2/core.hpp>
+#include <opencv2/opencv.hpp>
 using namespace std;
 class glfwObject
 {
@@ -26,7 +29,7 @@ class glfwObject
     void mouseMoveHanding(double,double);
     float getRotationX();
     float getRotationY();
-    void renderMesh();
+    void renderMesh(cv::Mat);
     void glfwDrawTorus(int,int,float,float);
     
     private:

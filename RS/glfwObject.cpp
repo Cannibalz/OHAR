@@ -67,12 +67,28 @@ void glfwObject::glfwDrawTorus(int numMajor, int numMinor, float majorRadius, fl
         glEnd();
     }
 }
-void glfwObject::renderMesh()
+void glfwObject::renderMesh(cv::Mat rotateMatrix)
 {
     glPushMatrix();
     glLoadIdentity();//移動中心
-    glRotatef(glfwObject::getRotationX()/*+(float)record_x*/, 0.0, 1.0, 0.0);//以y軸當旋轉軸
-    glRotatef(glfwObject::getRotationY()/*+(float)record_y*/, 1.0, 0.0, 0.0);//以x軸當旋轉軸
+    //glRotatef(glfwObject::getRotationX()/*+(float)record_x*/, 0.0, 1.0, 0.0);//以y軸當旋轉軸
+    //glRotatef(glfwObject::getRotationY()/*+(float)record_y*/, 1.0, 0.0, 0.0);//以x軸當旋轉軸
+    cv::Mat viewMatrix(4, 4, CV_64F);
+    for(unsigned int row=0; row<3; ++row)
+    {
+        for(unsigned int col=0; col<3; ++col)
+        {
+            viewMatrix.at<double>(row, col) = rotateMatrix.at<double>(row, col);
+        }
+        viewMatrix.at<double>(row, 3) = 0.5f;
+    }
+    viewMatrix.at<double>(3, 3) = 1.0f;
+    
+    cv::Mat glViewMatrix = cv::Mat::zeros(4, 4, CV_64F);
+    cv::transpose(viewMatrix , glViewMatrix);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadMatrixd(&glViewMatrix.at<double>(0, 0));
+    
     glBegin(GL_LINES);
     glColor4ub(255,0,0,255);
     glVertex3f(0,0,0);
