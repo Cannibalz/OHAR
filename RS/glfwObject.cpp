@@ -88,7 +88,14 @@ void glfwObject::renderMesh(cv::Mat rotateMatrix)
     cv::transpose(viewMatrix , glViewMatrix);
     glMatrixMode(GL_MODELVIEW);
     glLoadMatrixd(&glViewMatrix.at<double>(0, 0));
-    
+    for (int i = 0;i<4;i++)
+    {
+        for(int j = 0;j<4;j++)
+        {
+            cout << "'" << i <<"'"<<glViewMatrix.at<double>(i,j) << ",";
+        }
+        cout << endl;
+    }
     glBegin(GL_LINES);
     glColor4ub(255,0,0,255);
     glVertex3f(0,0,0);

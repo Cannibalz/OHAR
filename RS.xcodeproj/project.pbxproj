@@ -456,6 +456,7 @@
 			children = (
 				4C50B4061E6FE24F00BD8E26 /* glfwObject.cpp */,
 				4C50B4071E6FE24F00BD8E26 /* glfwObject.hpp */,
+				4C50B4091E715D5700BD8E26 /* New Group */,
 				4C50B3FB1E6EAA7800BD8E26 /* Object */,
 				4C14A5911E66C94D00A01E5F /* RS */,
 				4C14A5901E66C94D00A01E5F /* Products */,
@@ -629,6 +630,13 @@
 				4C50B3FD1E6EAF4F00BD8E26 /* Banana.ppm */,
 			);
 			name = Object;
+			sourceTree = "<group>";
+		};
+		4C50B4091E715D5700BD8E26 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
