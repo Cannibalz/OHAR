@@ -180,12 +180,21 @@ int main(int argc, char * argv[]) try
         vector<int>ids;
         vector<vector<Point2f>>corners, rejected;
         cv::aruco::detectMarkers(color, dictionary, corners, ids);
+        cv::Mat oneRvecs(3,1,CV_64FC1);
+        cv::Mat rotMat(4, 4, CV_64F);
+        //cvRodrigues2(rvecs, rotMat);
         color.copyTo(imageCopy);
         if(ids.size()>0)
         {
             aruco::drawDetectedMarkers(imageCopy, corners, ids);
             float markerLength = 0.05;
             aruco::estimatePoseSingleMarkers(corners, markerLength, cameraMatrix, distCoeffs, rvecs, tvecs);
+            for (int a = 0;a<3;a++)
+            {
+                oneRvecs.row(a).col(0) = rvecs[0][a];
+            }
+            Rodrigues(oneRvecs, rotMat);
+            
             for(int j = 0;j<ids.size();j++)
             {
                 aruco::drawAxis(imageCopy, cameraMatrix, distCoeffs, rvecs[j], tvecs[j], 0.1);
@@ -216,7 +225,10 @@ int main(int argc, char * argv[]) try
             glRasterPos2f(0, 0);
             glDrawPixels(640, 480, GL_LUMINANCE, GL_UNSIGNED_BYTE, dev->get_frame_data(rs::stream::infrared2));
         }
-        Torus.renderMesh();
+        if(ids.size()>0 && ids[0]==228)
+            {
+                Torus.renderMesh(rotMat);
+            }
         glfwSwapBuffers(win);
         glfwSetCursorPosCallback(win, cursor_position_callback);
     }

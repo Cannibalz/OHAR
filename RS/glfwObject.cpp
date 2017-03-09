@@ -67,7 +67,7 @@ void glfwObject::glfwDrawTorus(int numMajor, int numMinor, float majorRadius, fl
         glEnd();
     }
 }
-void glfwObject::renderMesh()
+void glfwObject::renderMesh(cv::Mat rotateMatrix)
 {
     glPushMatrix(); //開始旋轉物體
     glLoadIdentity();//移動中心
