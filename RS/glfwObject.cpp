@@ -82,11 +82,12 @@ void glfwObject::renderMesh(cv::Mat rotateMatrix)
         }
         viewMatrix.at<double>(row, 3) = 0.5f;
     }
-    viewMatrix.at<double>(3, 3) = 1.0f;
+    viewMatrix.at<double>(3, 3) = 2.0f; //縮放（數值越大圖越小） 
     
     cv::Mat glViewMatrix = cv::Mat::zeros(4, 4, CV_64F);
     cv::transpose(viewMatrix , glViewMatrix);
     glMatrixMode(GL_MODELVIEW);
+    //glViewMatrix.at<double>(1,0) = -(glViewMatrix.at<double>(1,0));
     glLoadMatrixd(&glViewMatrix.at<double>(0, 0));
     for (int i = 0;i<4;i++)
     {
