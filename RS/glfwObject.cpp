@@ -12,6 +12,59 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "glfwObject.hpp"
+#include "ObjectLoader.hpp"
+GLMmodel *Banana = NULL;
+GLuint  textureID[1];
+typedef struct {
+    unsigned char R, G, B;  /* Red, Green, Blue */
+} Pixel;
+typedef struct {
+    Pixel *pPixel;
+    int xRes, yRes;
+} ColorImage;
+void clearColorImage(Pixel background, ColorImage *image)
+{
+    int i;
+    
+    if (! image->pPixel) return;
+    for (i=0; i<image->xRes*image->yRes; i++) image->pPixel[i] = background;
+}
+void initColorImage(int xSize, int ySize, ColorImage *image)
+{
+    Pixel p = {0,0,0};
+    image->xRes = xSize;
+    image->yRes = ySize;
+    image->pPixel = (Pixel*) malloc(sizeof(Pixel)*xSize*ySize);
+    clearColorImage(p, image);
+}
+void readPPM(char *filename, ColorImage *image)
+{
+    FILE *inFile = fopen(filename, "rb");
+    char buffer[1024];
+    int xRes, yRes;
+    
+    assert(inFile); /* die if file can't be opened */
+    
+    fgets(buffer, 1024, inFile);
+    if (0 != strncmp(buffer, "P6", 2)) {
+        printf("Sorry, only P6 format is currently supported for PPM files.\n");
+        exit(1);
+    }
+    
+    fgets(buffer, 1024, inFile);
+    while ('#' == buffer[0]) {  // skip the comment lines
+        fgets(buffer, 1024, inFile);
+    }
+    
+    sscanf(buffer, "%d %d", &xRes, &yRes);
+    printf("xRes=%d, yRes = %d\n", xRes, yRes);
+    initColorImage(xRes, yRes, image);
+    
+    fgets(buffer, 1024, inFile); // skip the remaining header lines
+    
+    fread(image->pPixel, 1, 3*image->xRes*image->yRes, inFile );
+    fclose(inFile);
+}
 glfwObject::glfwObject()
 {
     glfwObject::RotationX = 0;
@@ -82,7 +135,7 @@ void glfwObject::renderMesh(cv::Mat rotateMatrix)
         }
         viewMatrix.at<double>(row, 3) = 0.5f;
     }
-    viewMatrix.at<double>(3, 3) = 2.0f; //縮放（數值越大圖越小） 
+    viewMatrix.at<double>(3, 3) = 2.0f; //縮放（數值越大圖越小）
     
     cv::Mat glViewMatrix = cv::Mat::zeros(4, 4, CV_64F);
     cv::transpose(viewMatrix , glViewMatrix);
@@ -111,12 +164,61 @@ void glfwObject::renderMesh(cv::Mat rotateMatrix)
     glVertex3f(0,0.75,0);
     
     glEnd();
-    
-    glfwObject::glfwDrawTorus(10, 10, 0.5, .2);
+    ColorImage texture[1];
+    glGenTextures(30, textureID);
+    std::vector<float> vertices, normals;
+    GLuint list_id;
+    readPPM("/Users/TomCruise/Desktop/OHAR/Banana.ppm", &texture[0]);
+    glBindTexture(GL_TEXTURE_2D, textureID[0]);
+    Banana = glmReadOBJ("/Users/TomCruise/Desktop/OHAR/Banana.obj");
+    glmUnitize(Banana);
+    list_id = glmList(Banana, GLM_MATERIAL | GLM_SMOOTH);
+    glCallList(list_id);
+    //glfwObject::glfwDrawTorus(10, 10, 0.5, .2);
     glPopMatrix();
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 void glfwObject::mouseMoveHanding(double xpos, double ypos)
 {
     glfwObject::RotationX = glfwObject::RecordedX - xpos;
     glfwObject::RotationY = glfwObject::RecordedY - ypos;
+}
+void glfwObject::drawObj( GLMmodel *objs )
+{
+    int i, v;
+    float *p;
+    
+    if (! objs) return;
+    
+    for (i=0; i<objs->numtriangles; i++) {
+        // The current triangle is: myObj->triangles[i]
+        glBegin(GL_TRIANGLES);
+        
+        for (v=0; v<3; v++) {
+            // Process the normals.
+            if (objs->numnormals > 0) {
+                p = & objs->normals[ objs->triangles[i].nindices[v]*3 ];
+                glNormal3fv(p);
+            }
+            
+            // Process the texture coordinates.
+            if (objs->numtexcoords > 0) {
+                p = & objs->texcoords[ objs->triangles[i].tindices[v]*2 ];
+                glTexCoord2fv(p);
+                
+            }
+            
+            // Process the vertices.
+            // Assume that the 3 vertices are P[n0], P[n1], P[n2],
+            // P[] is equivalent to myObj->vertices, and n0,n1,n2 is related to myObj->triangles[i].vindices[0,1,2]
+            p = & objs->vertices[ objs->triangles[i].vindices[v]*3 ];
+            
+            // Set the RGB based on XYZ.
+            // We are assuming that the XYZ are within [-1. 1].
+            //glColor3f( p[0]*0.8+0.2, p[1]*0.8+0.2, p[2]*0.8+0.2 );
+            //setMaterial_RGB( p[0]*0.5+0.5, p[1]*0.5+0.5, p[2]*0.5+0.5 );
+            glVertex3fv( p );
+        }
+        glEnd();
+    }
 }
