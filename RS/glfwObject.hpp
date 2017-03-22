@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include <glm.h>
+#include <glm/glm.hpp>
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <opencv/highgui.h>
@@ -32,7 +32,7 @@ class glfwObject
     float getRotationY();
     void renderMesh(cv::Mat);
     void glfwDrawTorus(int,int,float,float);
-    void drawObj(GLMmodel*);
+    void drawObj(glm model*);
     private:
     void setObjectModel(string);
     void setObjectTexture(string);

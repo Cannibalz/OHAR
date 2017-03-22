@@ -10,6 +10,7 @@
 #include <string.h>
 #include <math.h>
 #include <GLFW/glfw3.h>
+#include "glm/glm.hpp"
 #include <iostream>
 #include "glfwObject.hpp"
 #include "ObjectLoader.hpp"
