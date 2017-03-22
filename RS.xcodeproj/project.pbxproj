@@ -143,6 +143,7 @@
 		4C14A6A61E66F79A00A01E5F /* libopencv_xphoto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C14A62B1E66F79A00A01E5F /* libopencv_xphoto.dylib */; };
 		4C37C6441E6971EA00ACF1C2 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C37C6431E6971EA00ACF1C2 /* GLUT.framework */; };
 		4C50B4081E6FE24F00BD8E26 /* glfwObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C50B4061E6FE24F00BD8E26 /* glfwObject.cpp */; };
+		4C74C2BA1E8106EF004B8D56 /* ObjectLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C74C2B81E8106EF004B8D56 /* ObjectLoader.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -300,6 +301,8 @@
 		4C50B3FD1E6EAF4F00BD8E26 /* Banana.ppm */ = {isa = PBXFileReference; lastKnownFileType = file; path = Banana.ppm; sourceTree = "<group>"; };
 		4C50B4061E6FE24F00BD8E26 /* glfwObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = glfwObject.cpp; path = RS/glfwObject.cpp; sourceTree = "<group>"; };
 		4C50B4071E6FE24F00BD8E26 /* glfwObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = glfwObject.hpp; path = RS/glfwObject.hpp; sourceTree = "<group>"; };
+		4C74C2B81E8106EF004B8D56 /* ObjectLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObjectLoader.cpp; path = RS/ObjectLoader.cpp; sourceTree = "<group>"; };
+		4C74C2B91E8106EF004B8D56 /* ObjectLoader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ObjectLoader.hpp; path = RS/ObjectLoader.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -450,8 +453,12 @@
 		4C14A5861E66C94D00A01E5F = {
 			isa = PBXGroup;
 			children = (
+				4C74C2B81E8106EF004B8D56 /* ObjectLoader.cpp */,
+				4C74C2B91E8106EF004B8D56 /* ObjectLoader.hpp */,
 				4C50B4061E6FE24F00BD8E26 /* glfwObject.cpp */,
 				4C50B4071E6FE24F00BD8E26 /* glfwObject.hpp */,
+				4C50B3FC1E6EAF4F00BD8E26 /* Banana.obj */,
+				4C50B4091E715D5700BD8E26 /* New Group */,
 				4C50B3FB1E6EAA7800BD8E26 /* Object */,
 				4C14A5911E66C94D00A01E5F /* RS */,
 				4C14A5901E66C94D00A01E5F /* Products */,
@@ -621,10 +628,16 @@
 		4C50B3FB1E6EAA7800BD8E26 /* Object */ = {
 			isa = PBXGroup;
 			children = (
-				4C50B3FC1E6EAF4F00BD8E26 /* Banana.obj */,
 				4C50B3FD1E6EAF4F00BD8E26 /* Banana.ppm */,
 			);
 			name = Object;
+			sourceTree = "<group>";
+		};
+		4C50B4091E715D5700BD8E26 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -686,6 +699,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C50B4081E6FE24F00BD8E26 /* glfwObject.cpp in Sources */,
+				4C74C2BA1E8106EF004B8D56 /* ObjectLoader.cpp in Sources */,
 				4C14A5931E66C94D00A01E5F /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
