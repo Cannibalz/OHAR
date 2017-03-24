@@ -10,12 +10,14 @@
 #include <string.h>
 #include <math.h>
 #include <GLFW/glfw3.h>
-#include "glm/glm.hpp"
+#include "glm.h"
 #include <iostream>
 #include "glfwObject.hpp"
 #include "ObjectLoader.hpp"
 GLMmodel *Banana = NULL;
+GLubyte *BananaSKin = NULL;
 GLuint  textureID[1];
+GLuint textureBanana;
 typedef struct {
     unsigned char R, G, B;  /* Red, Green, Blue */
 } Pixel;
@@ -66,6 +68,21 @@ void readPPM(char *filename, ColorImage *image)
     fread(image->pPixel, 1, 3*image->xRes*image->yRes, inFile );
     fclose(inFile);
 }
+void initTextureID()
+{
+    ColorImage texture[1];
+    readPPM("/Users/kaofan/Desktop/OHAR/Banana.ppm", &texture[0]);
+    
+    glGenTextures(1, &textureBanana);
+    glBindTexture(GL_TEXTURE_2D, textureBanana);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texture[0].xRes, texture[0].yRes, 0, GL_RGB, GL_UNSIGNED_BYTE, texture[0].pPixel);//(GL_TEXTURE_2D, 3, texture[0].xRes, texture[0].yRes, GL_RGB, GL_UNSIGNED_BYTE, texture[0].pPixel);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    //glGenerateMipmap(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
 glfwObject::glfwObject()
 {
     glfwObject::RotationX = 0;
@@ -73,7 +90,7 @@ glfwObject::glfwObject()
 }
 glfwObject::glfwObject(string objFileName,string textureFileName)
 {
-    
+    initTextureID();
 }
 float glfwObject::getRotationX()
 {
@@ -123,11 +140,15 @@ void glfwObject::glfwDrawTorus(int numMajor, int numMinor, float majorRadius, fl
 }
 void glfwObject::renderMesh(cv::Mat rotateMatrix)
 {
+    initTextureID();
     glPushMatrix();
+    
     glLoadIdentity();//移動中心
+    glBindTexture(GL_TEXTURE_2D, textureID[0]);
     //glRotatef(glfwObject::getRotationX()/*+(float)record_x*/, 0.0, 1.0, 0.0);//以y軸當旋轉軸
     //glRotatef(glfwObject::getRotationY()/*+(float)record_y*/, 1.0, 0.0, 0.0);//以x軸當旋轉軸
     cv::Mat viewMatrix(4, 4, CV_64F);
+    
     for(unsigned int row=0; row<3; ++row)
     {
         for(unsigned int col=0; col<3; ++col)
@@ -165,17 +186,19 @@ void glfwObject::renderMesh(cv::Mat rotateMatrix)
     glVertex3f(0,0.75,0);
     
     glEnd();
-    ColorImage texture[1];
-    glGenTextures(30, textureID);
+    glColor4ub(255,0,0,255);
+    glBindTexture(GL_TEXTURE_2D, textureBanana);
     std::vector<float> vertices, normals;
-    GLuint list_id;
-    readPPM("/Users/TomCruise/Desktop/OHAR/Banana.ppm", &texture[0]);
-    glBindTexture(GL_TEXTURE_2D, textureID[0]);
-    Banana = glmReadOBJ("/Users/TomCruise/Desktop/OHAR/Banana.obj");
+    
+    GLuint list_id; //obj list
+    Banana = glmReadOBJ("/Users/kaofan/Desktop/OHAR/Banana.obj");
     glmUnitize(Banana);
+    
+    
     list_id = glmList(Banana, GLM_MATERIAL | GLM_SMOOTH);
-    glCallList(list_id);
+    glCallList(list_id);    //顯示list中obj
     //glfwObject::glfwDrawTorus(10, 10, 0.5, .2);
+    
     glPopMatrix();
     glBindTexture(GL_TEXTURE_2D, 0);
 }
