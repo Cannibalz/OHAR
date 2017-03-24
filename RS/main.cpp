@@ -11,7 +11,7 @@
 #include <GLUT/glut.h>
 
 // Also include GLFW to allow for graphical display
-#include <glm.h>
+#include <glm/glm.hpp>
 #include <GLFW/glfw3.h>
 #include <math.h>
 #include <stdlib.h>
@@ -144,8 +144,8 @@ int main(int argc, char * argv[]) try
     dev->start(); //start streaming
 
     Mat cameraMatrix, distCoeffs; //相機參數
-    // cv::String filename = "/Users/kaofan/Desktop/CameraParas.yml";   //Pro
-    cv::String filename = "/Users/TomCruise/Desktop/CameraParas.yml";   //iMac
+    cv::String filename = "/Users/kaofan/Desktop/CameraParas.yml";   //Pro
+    //cv::String filename = "/Users/TomCruise/Desktop/CameraParas.yml";   //iMac
     Ptr<cv::aruco::Dictionary> dictionary = cv::aruco::getPredefinedDictionary(aruco::DICT_ARUCO_ORIGINAL);
     float markerLength = 0.05f; // length in meters (?) of a marker
     cv::FileStorage fs;
@@ -154,7 +154,7 @@ int main(int argc, char * argv[]) try
     fs["Distortion_Coefficients"] >> distCoeffs;
     // Open a GLFW window to display our output
     glfwInit();
-    GLFWwindow * win = glfwCreateWindow(1280,970, "librealsense tutorial #2", nullptr, nullptr);
+    GLFWwindow * win = glfwCreateWindow(640,480, "librealsense tutorial #2", nullptr, nullptr);
     glfwMakeContextCurrent(win);
     
     while(!glfwWindowShouldClose(win))

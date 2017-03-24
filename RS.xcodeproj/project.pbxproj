@@ -142,10 +142,10 @@
 		4C14A6A51E66F79A00A01E5F /* libopencv_xphoto.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C14A62A1E66F79A00A01E5F /* libopencv_xphoto.3.2.dylib */; };
 		4C14A6A61E66F79A00A01E5F /* libopencv_xphoto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C14A62B1E66F79A00A01E5F /* libopencv_xphoto.dylib */; };
 		4C37C6441E6971EA00ACF1C2 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C37C6431E6971EA00ACF1C2 /* GLUT.framework */; };
-		4C50B3F91E6EAA4300BD8E26 /* libglm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C50B3F71E6EAA4300BD8E26 /* libglm.a */; };
-		4C50B3FA1E6EAA4300BD8E26 /* libglm.la in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C50B3F81E6EAA4300BD8E26 /* libglm.la */; };
 		4C50B4081E6FE24F00BD8E26 /* glfwObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C50B4061E6FE24F00BD8E26 /* glfwObject.cpp */; };
 		4C74C2BA1E8106EF004B8D56 /* ObjectLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C74C2B81E8106EF004B8D56 /* ObjectLoader.cpp */; };
+		AA2EB78D1E82710E00C91148 /* libglm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C50B3F71E6EAA4300BD8E26 /* libglm.a */; };
+		AA2EB78E1E82710E00C91148 /* libglm.la in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C50B3F81E6EAA4300BD8E26 /* libglm.la */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -314,8 +314,6 @@
 			files = (
 				4C37C6441E6971EA00ACF1C2 /* GLUT.framework in Frameworks */,
 				4C14A62C1E66F79A00A01E5F /* libopencv_aruco.3.2.0.dylib in Frameworks */,
-				4C50B3F91E6EAA4300BD8E26 /* libglm.a in Frameworks */,
-				4C50B3FA1E6EAA4300BD8E26 /* libglm.la in Frameworks */,
 				4C14A62D1E66F79A00A01E5F /* libopencv_aruco.3.2.dylib in Frameworks */,
 				4C14A62E1E66F79A00A01E5F /* libopencv_aruco.dylib in Frameworks */,
 				4C14A62F1E66F79A00A01E5F /* libopencv_bgsegm.3.2.0.dylib in Frameworks */,
@@ -437,6 +435,8 @@
 				4C14A6A31E66F79A00A01E5F /* libopencv_xobjdetect.dylib in Frameworks */,
 				4C14A6A41E66F79A00A01E5F /* libopencv_xphoto.3.2.0.dylib in Frameworks */,
 				4C14A6A51E66F79A00A01E5F /* libopencv_xphoto.3.2.dylib in Frameworks */,
+				AA2EB78D1E82710E00C91148 /* libglm.a in Frameworks */,
+				AA2EB78E1E82710E00C91148 /* libglm.la in Frameworks */,
 				4C14A6A61E66F79A00A01E5F /* libopencv_xphoto.dylib in Frameworks */,
 				4C14A5B01E66CE6D00A01E5F /* OpenGL.framework in Frameworks */,
 				4C14A5AC1E66CCD000A01E5F /* libglfw.3.2.dylib in Frameworks */,
