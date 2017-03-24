@@ -227,10 +227,10 @@ int main(int argc, char * argv[]) try
         }
         if(ids.size()>0 && ids[0]==228)
             {
-                Torus.renderMesh(rotMat);
+                //Torus.renderMesh(rotMat);
             }
         glfwSwapBuffers(win);
-        glfwSetCursorPosCallback(win, cursor_position_callback);
+        //glfwSetCursorPosCallback(win, cursor_position_callback);
     }
     dev->stop();
     return EXIT_SUCCESS;

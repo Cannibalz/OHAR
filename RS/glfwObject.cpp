@@ -165,11 +165,17 @@ void glfwObject::renderMesh(cv::Mat rotateMatrix)
     
     glEnd();
     ColorImage texture[1];
-    glGenTextures(30, textureID);
+    glGenTextures(1, textureID);
     std::vector<float> vertices, normals;
     GLuint list_id;
-    readPPM("/Users/TomCruise/Desktop/OHAR/Banana.ppm", &texture[0]);
-    glBindTexture(GL_TEXTURE_2D, textureID[0]);
+    //readPPM("/Users/TomCruise/Desktop/OHAR/Banana.ppm", &texture[0]);
+    //glBindTexture(GL_TEXTURE_2D, textureID[0]);
+    //gluBuild2DMipmaps(GL_TEXTURE_2D, 3,texture[0].xRes,texture[0].yRes, GL_RGB, GL_UNSIGNED_BYTE, texture[0].pPixel);
+    //glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+    //glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+    //glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    //glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    //glBindTexture(GL_TEXTURE_2D, textureID[0]);
     Banana = glmReadOBJ("/Users/TomCruise/Desktop/OHAR/Banana.obj");
     glmUnitize(Banana);
     list_id = glmList(Banana, GLM_MATERIAL | GLM_SMOOTH);
