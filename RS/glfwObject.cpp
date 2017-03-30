@@ -138,7 +138,7 @@ void glfwObject::glfwDrawTorus(int numMajor, int numMinor, float majorRadius, fl
         glEnd();
     }
 }
-void glfwObject::renderMesh(cv::Mat rotateMatrix)
+void glfwObject::renderMesh(cv::Mat rotateMatrix,cv::Mat translationVector)
 {
     initTextureID();
     glPushMatrix();
@@ -155,7 +155,7 @@ void glfwObject::renderMesh(cv::Mat rotateMatrix)
         {
             viewMatrix.at<double>(row, col) = rotateMatrix.at<double>(row, col);
         }
-        viewMatrix.at<double>(row, 3) = 0.5f;
+        viewMatrix.at<double>(row, 3) = translationVector.at<double>(row, 0);
     }
     viewMatrix.at<double>(3, 3) = 2.0f; //縮放（數值越大圖越小）
     
