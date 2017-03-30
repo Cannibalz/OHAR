@@ -159,7 +159,6 @@ int main(int argc, char * argv[]) try
     
     while(!glfwWindowShouldClose(win))
     {
-        
         // Wait for new frame data
         glfwPollEvents();
         dev->wait_for_frames(); //取得下一幀
@@ -167,12 +166,13 @@ int main(int argc, char * argv[]) try
         //get color & depth data and process by opencv
         rs::intrinsics depth_intr = dev->get_stream_intrinsics(rs::stream::depth);
         cv::Mat depth16( depth_intr.height,depth_intr.width,CV_16U,(void*)dev->get_frame_data(rs::stream::depth) );
-        imshow("depth16", depth16);
+        //imshow("depth16", depth16);
         cv::Mat depth8u = depth16;
         
         depth8u.convertTo( depth8u, CV_8UC1, 255.0/10000 );
         filterSpeckles(depth8u, -16, 50, 20);
         Mat color(Size(640, 480), CV_8UC3, (void*)dev->get_frame_data(rs::stream::color), Mat::AUTO_STEP);
+        imshow("color",color);
         //imshow("depthSobel",SobelEdgeDetect(depth8u));
         //imshow("colorSobel",SobelEdgeDetect(color));
         Mat imageCopy;
@@ -182,6 +182,7 @@ int main(int argc, char * argv[]) try
         cv::aruco::detectMarkers(color, dictionary, corners, ids);
         cv::Mat oneRvecs(3,1,CV_64FC1);
         cv::Mat rotMat(4, 4, CV_64F);
+        cv::Mat oneTvecs(3,1,CV_64FC1);
         //cvRodrigues2(rvecs, rotMat);
         color.copyTo(imageCopy);
         if(ids.size()>0)
@@ -192,6 +193,8 @@ int main(int argc, char * argv[]) try
             for (int a = 0;a<3;a++)
             {
                 oneRvecs.row(a).col(0) = rvecs[0][a];
+                oneTvecs = tvecs[0];
+                cout << oneTvecs.at<double>(0,0) << "," << oneTvecs.at<double>(0,1) << "," << oneTvecs.at<double>(0,2);
             }
             Rodrigues(oneRvecs, rotMat);
             
@@ -227,7 +230,7 @@ int main(int argc, char * argv[]) try
         }
         if(ids.size()>0 && ids[0]==228)
             {
-                Torus.renderMesh(rotMat);
+                Torus.renderMesh(rotMat,oneTvecs);
             }
         glfwSwapBuffers(win);
         //glfwSetCursorPosCallback(win, cursor_position_callback);

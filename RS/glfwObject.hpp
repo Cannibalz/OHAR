@@ -30,7 +30,7 @@ class glfwObject
     void mouseMoveHanding(double,double);
     float getRotationX();
     float getRotationY();
-    void renderMesh(cv::Mat);
+    void renderMesh(cv::Mat,cv::Mat);
     void glfwDrawTorus(int,int,float,float);
     void drawObj(GLMmodel*);
     private:
