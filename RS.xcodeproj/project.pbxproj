@@ -144,6 +144,16 @@
 		4C37C6441E6971EA00ACF1C2 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C37C6431E6971EA00ACF1C2 /* GLUT.framework */; };
 		4C50B4081E6FE24F00BD8E26 /* glfwObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C50B4061E6FE24F00BD8E26 /* glfwObject.cpp */; };
 		4C74C2BA1E8106EF004B8D56 /* ObjectLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C74C2B81E8106EF004B8D56 /* ObjectLoader.cpp */; };
+		4CC857F01E8D097D006EE070 /* realsenseController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CC857EE1E8D097D006EE070 /* realsenseController.cpp */; };
+		4CC857F31E8D272C006EE070 /* openCVController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CC857F11E8D272C006EE070 /* openCVController.cpp */; };
+		4CC8591F1E8E34AF006EE070 /* Bitmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CC859171E8E34AF006EE070 /* Bitmap.cpp */; };
+		4CC859201E8E34AF006EE070 /* Program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CC859191E8E34AF006EE070 /* Program.cpp */; };
+		4CC859211E8E34AF006EE070 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CC8591B1E8E34AF006EE070 /* Shader.cpp */; };
+		4CC859221E8E34AF006EE070 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CC8591D1E8E34AF006EE070 /* Texture.cpp */; };
+		4CC859281E8E3948006EE070 /* libGLEW.2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC859251E8E3948006EE070 /* libGLEW.2.0.0.dylib */; };
+		4CC859291E8E3948006EE070 /* libGLEW.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC859261E8E3948006EE070 /* libGLEW.2.0.dylib */; };
+		4CC8592A1E8E3948006EE070 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC859271E8E3948006EE070 /* libGLEW.a */; };
+		4CC8593B1E8E4936006EE070 /* platform_osx.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4CC8593A1E8E4936006EE070 /* platform_osx.mm */; };
 		AA2EB78D1E82710E00C91148 /* libglm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C50B3F71E6EAA4300BD8E26 /* libglm.a */; };
 		AA2EB78E1E82710E00C91148 /* libglm.la in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C50B3F81E6EAA4300BD8E26 /* libglm.la */; };
 /* End PBXBuildFile section */
@@ -305,6 +315,28 @@
 		4C50B4071E6FE24F00BD8E26 /* glfwObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = glfwObject.hpp; path = RS/glfwObject.hpp; sourceTree = "<group>"; };
 		4C74C2B81E8106EF004B8D56 /* ObjectLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObjectLoader.cpp; path = RS/ObjectLoader.cpp; sourceTree = "<group>"; };
 		4C74C2B91E8106EF004B8D56 /* ObjectLoader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ObjectLoader.hpp; path = RS/ObjectLoader.hpp; sourceTree = "<group>"; };
+		4CC857EE1E8D097D006EE070 /* realsenseController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = realsenseController.cpp; sourceTree = "<group>"; };
+		4CC857EF1E8D097D006EE070 /* realsenseController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = realsenseController.hpp; sourceTree = "<group>"; };
+		4CC857F11E8D272C006EE070 /* openCVController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = openCVController.cpp; sourceTree = "<group>"; };
+		4CC857F21E8D272C006EE070 /* openCVController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = openCVController.hpp; sourceTree = "<group>"; };
+		4CC857F41E8E0DC3006EE070 /* cameraParas.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cameraParas.yml; sourceTree = "<group>"; };
+		4CC859171E8E34AF006EE070 /* Bitmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bitmap.cpp; sourceTree = "<group>"; };
+		4CC859181E8E34AF006EE070 /* Bitmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bitmap.h; sourceTree = "<group>"; };
+		4CC859191E8E34AF006EE070 /* Program.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Program.cpp; sourceTree = "<group>"; };
+		4CC8591A1E8E34AF006EE070 /* Program.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Program.h; sourceTree = "<group>"; };
+		4CC8591B1E8E34AF006EE070 /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
+		4CC8591C1E8E34AF006EE070 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
+		4CC8591D1E8E34AF006EE070 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture.cpp; sourceTree = "<group>"; };
+		4CC8591E1E8E34AF006EE070 /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture.h; sourceTree = "<group>"; };
+		4CC859241E8E387C006EE070 /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
+		4CC859251E8E3948006EE070 /* libGLEW.2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.0.0.dylib; path = ../../../../usr/local/lib/libGLEW.2.0.0.dylib; sourceTree = "<group>"; };
+		4CC859261E8E3948006EE070 /* libGLEW.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.0.dylib; path = ../../../../usr/local/lib/libGLEW.2.0.dylib; sourceTree = "<group>"; };
+		4CC859271E8E3948006EE070 /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEW.a; path = ../../../../usr/local/lib/libGLEW.a; sourceTree = "<group>"; };
+		4CC859391E8E491D006EE070 /* platform.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = platform.hpp; sourceTree = "<group>"; };
+		4CC8593A1E8E4936006EE070 /* platform_osx.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = platform_osx.mm; sourceTree = "<group>"; };
+		4CC8593D1E8E49DF006EE070 /* fragment-shader.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "fragment-shader.txt"; sourceTree = "<group>"; };
+		4CC8593E1E8E49DF006EE070 /* vertex-shader.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "vertex-shader.txt"; sourceTree = "<group>"; };
+		4CC8593F1E8E49DF006EE070 /* wooden-crate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "wooden-crate.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -435,6 +467,9 @@
 				4C14A6A31E66F79A00A01E5F /* libopencv_xobjdetect.dylib in Frameworks */,
 				4C14A6A41E66F79A00A01E5F /* libopencv_xphoto.3.2.0.dylib in Frameworks */,
 				4C14A6A51E66F79A00A01E5F /* libopencv_xphoto.3.2.dylib in Frameworks */,
+				4CC859281E8E3948006EE070 /* libGLEW.2.0.0.dylib in Frameworks */,
+				4CC859291E8E3948006EE070 /* libGLEW.2.0.dylib in Frameworks */,
+				4CC8592A1E8E3948006EE070 /* libGLEW.a in Frameworks */,
 				AA2EB78D1E82710E00C91148 /* libglm.a in Frameworks */,
 				AA2EB78E1E82710E00C91148 /* libglm.la in Frameworks */,
 				4C14A6A61E66F79A00A01E5F /* libopencv_xphoto.dylib in Frameworks */,
@@ -481,7 +516,15 @@
 		4C14A5911E66C94D00A01E5F /* RS */ = {
 			isa = PBXGroup;
 			children = (
+				4CC859391E8E491D006EE070 /* platform.hpp */,
+				4CC8593A1E8E4936006EE070 /* platform_osx.mm */,
+				4CC859161E8E34AF006EE070 /* tdogl */,
+				4CC857F41E8E0DC3006EE070 /* cameraParas.yml */,
 				4C14A5921E66C94D00A01E5F /* main.cpp */,
+				4CC857F11E8D272C006EE070 /* openCVController.cpp */,
+				4CC857F21E8D272C006EE070 /* openCVController.hpp */,
+				4CC857EE1E8D097D006EE070 /* realsenseController.cpp */,
+				4CC857EF1E8D097D006EE070 /* realsenseController.hpp */,
 			);
 			path = RS;
 			sourceTree = "<group>";
@@ -489,6 +532,9 @@
 		4C14A5991E66CA6700A01E5F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4CC859251E8E3948006EE070 /* libGLEW.2.0.0.dylib */,
+				4CC859261E8E3948006EE070 /* libGLEW.2.0.dylib */,
+				4CC859271E8E3948006EE070 /* libGLEW.a */,
 				4C50B3F71E6EAA4300BD8E26 /* libglm.a */,
 				4C50B3F81E6EAA4300BD8E26 /* libglm.la */,
 				4C37C6431E6971EA00ACF1C2 /* GLUT.framework */,
@@ -632,6 +678,7 @@
 		4C50B3FB1E6EAA7800BD8E26 /* Object */ = {
 			isa = PBXGroup;
 			children = (
+				4CC8593C1E8E49DF006EE070 /* resources */,
 				4C50B3FD1E6EAF4F00BD8E26 /* Banana.ppm */,
 			);
 			name = Object;
@@ -642,6 +689,32 @@
 			children = (
 			);
 			name = "New Group";
+			sourceTree = "<group>";
+		};
+		4CC859161E8E34AF006EE070 /* tdogl */ = {
+			isa = PBXGroup;
+			children = (
+				4CC859241E8E387C006EE070 /* stb_image.h */,
+				4CC859171E8E34AF006EE070 /* Bitmap.cpp */,
+				4CC859181E8E34AF006EE070 /* Bitmap.h */,
+				4CC859191E8E34AF006EE070 /* Program.cpp */,
+				4CC8591A1E8E34AF006EE070 /* Program.h */,
+				4CC8591B1E8E34AF006EE070 /* Shader.cpp */,
+				4CC8591C1E8E34AF006EE070 /* Shader.h */,
+				4CC8591D1E8E34AF006EE070 /* Texture.cpp */,
+				4CC8591E1E8E34AF006EE070 /* Texture.h */,
+			);
+			path = tdogl;
+			sourceTree = "<group>";
+		};
+		4CC8593C1E8E49DF006EE070 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				4CC8593D1E8E49DF006EE070 /* fragment-shader.txt */,
+				4CC8593E1E8E49DF006EE070 /* vertex-shader.txt */,
+				4CC8593F1E8E49DF006EE070 /* wooden-crate.jpg */,
+			);
+			path = resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -702,9 +775,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CC857F31E8D272C006EE070 /* openCVController.cpp in Sources */,
 				4C50B4081E6FE24F00BD8E26 /* glfwObject.cpp in Sources */,
+				4CC859211E8E34AF006EE070 /* Shader.cpp in Sources */,
+				4CC859221E8E34AF006EE070 /* Texture.cpp in Sources */,
+				4CC859201E8E34AF006EE070 /* Program.cpp in Sources */,
+				4CC8591F1E8E34AF006EE070 /* Bitmap.cpp in Sources */,
 				4C74C2BA1E8106EF004B8D56 /* ObjectLoader.cpp in Sources */,
+				4CC857F01E8D097D006EE070 /* realsenseController.cpp in Sources */,
 				4C14A5931E66C94D00A01E5F /* main.cpp in Sources */,
+				4CC8593B1E8E4936006EE070 /* platform_osx.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

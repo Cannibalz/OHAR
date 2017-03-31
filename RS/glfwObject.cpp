@@ -5,6 +5,10 @@
 //  Created by Tom Cruise on 2017/3/8.
 //  Copyright © 2017年 Tom Cruise. All rights reserved.
 //
+#include "platform.hpp"
+
+#include "glfwObject.hpp"
+#include "ObjectLoader.hpp"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -12,12 +16,17 @@
 #include <GLFW/glfw3.h>
 #include "glm.h"
 #include <iostream>
-#include "glfwObject.hpp"
-#include "ObjectLoader.hpp"
+
 GLMmodel *Banana = NULL;
 GLubyte *BananaSKin = NULL;
 GLuint  textureID[1];
 GLuint textureBanana;
+tdogl::Texture* gTexture = NULL;
+tdogl::Program* gProgram = NULL;
+GLuint gVAO = 0;
+GLuint gVBO = 0;
+GLfloat gDegreesRotated = 0.0f;
+
 typedef struct {
     unsigned char R, G, B;  /* Red, Green, Blue */
 } Pixel;
@@ -92,13 +101,93 @@ glfwObject::glfwObject(string objFileName,string textureFileName)
 {
     initTextureID();
 }
+void glfwObject::LoadTexture() {
+    //tdogl::Bitmap bmp = tdogl::Bitmap::bitmapFromFile(ResourcePath("wooden-crate.jpg"));
+    tdogl::Bitmap bmp = tdogl::Bitmap::bitmapFromFile("/Users/TomCruise/Desktop/OHAR/RS/resources/wooden-crate.jpg");
+    bmp.flipVertically();
+    gTexture = new tdogl::Texture(bmp);
+}
+void glfwObject::LoadCube()
+{
+    // make and bind the VAO
+    glGenVertexArrays(1, &gVAO);
+    glBindVertexArray(gVAO);
+    
+    // make and bind the VBO
+    glGenBuffers(1, &gVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, gVBO);
+    
+    // Make a cube out of triangles (two triangles per side)
+    GLfloat vertexData[] = {
+        //  X     Y     Z       U     V
+        // bottom
+        -1.0f,-1.0f,-1.0f,   0.0f, 0.0f,
+        1.0f,-1.0f,-1.0f,   1.0f, 0.0f,
+        -1.0f,-1.0f, 1.0f,   0.0f, 1.0f,
+        1.0f,-1.0f,-1.0f,   1.0f, 0.0f,
+        1.0f,-1.0f, 1.0f,   1.0f, 1.0f,
+        -1.0f,-1.0f, 1.0f,   0.0f, 1.0f,
+        
+        // top
+        -1.0f, 1.0f,-1.0f,   0.0f, 0.0f,
+        -1.0f, 1.0f, 1.0f,   0.0f, 1.0f,
+        1.0f, 1.0f,-1.0f,   1.0f, 0.0f,
+        1.0f, 1.0f,-1.0f,   1.0f, 0.0f,
+        -1.0f, 1.0f, 1.0f,   0.0f, 1.0f,
+        1.0f, 1.0f, 1.0f,   1.0f, 1.0f,
+        
+        // front
+        -1.0f,-1.0f, 1.0f,   1.0f, 0.0f,
+        1.0f,-1.0f, 1.0f,   0.0f, 0.0f,
+        -1.0f, 1.0f, 1.0f,   1.0f, 1.0f,
+        1.0f,-1.0f, 1.0f,   0.0f, 0.0f,
+        1.0f, 1.0f, 1.0f,   0.0f, 1.0f,
+        -1.0f, 1.0f, 1.0f,   1.0f, 1.0f,
+        
+        // back
+        -1.0f,-1.0f,-1.0f,   0.0f, 0.0f,
+        -1.0f, 1.0f,-1.0f,   0.0f, 1.0f,
+        1.0f,-1.0f,-1.0f,   1.0f, 0.0f,
+        1.0f,-1.0f,-1.0f,   1.0f, 0.0f,
+        -1.0f, 1.0f,-1.0f,   0.0f, 1.0f,
+        1.0f, 1.0f,-1.0f,   1.0f, 1.0f,
+        
+        // left
+        -1.0f,-1.0f, 1.0f,   0.0f, 1.0f,
+        -1.0f, 1.0f,-1.0f,   1.0f, 0.0f,
+        -1.0f,-1.0f,-1.0f,   0.0f, 0.0f,
+        -1.0f,-1.0f, 1.0f,   0.0f, 1.0f,
+        -1.0f, 1.0f, 1.0f,   1.0f, 1.0f,
+        -1.0f, 1.0f,-1.0f,   1.0f, 0.0f,
+        
+        // right
+        1.0f,-1.0f, 1.0f,   1.0f, 1.0f,
+        1.0f,-1.0f,-1.0f,   1.0f, 0.0f,
+        1.0f, 1.0f,-1.0f,   0.0f, 0.0f,
+        1.0f,-1.0f, 1.0f,   1.0f, 1.0f,
+        1.0f, 1.0f,-1.0f,   0.0f, 0.0f,
+        1.0f, 1.0f, 1.0f,   0.0f, 1.0f
+    };
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
+    
+    // connect the xyz to the "vert" attribute of the vertex shader
+    glEnableVertexAttribArray(gProgram->attrib("vert"));
+    glVertexAttribPointer(gProgram->attrib("vert"), 3, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), NULL);
+    
+    // connect the uv coords to the "vertTexCoord" attribute of the vertex shader
+    glEnableVertexAttribArray(gProgram->attrib("vertTexCoord"));
+    glVertexAttribPointer(gProgram->attrib("vertTexCoord"), 2, GL_FLOAT, GL_TRUE,  5*sizeof(GLfloat), (const GLvoid*)(3 * sizeof(GLfloat)));
+    
+    // unbind the VAO
+    glBindVertexArray(0);
+}
 float glfwObject::getRotationX()
 {
-    return glfwObject::RotationX;
+    return RotationX;
 }
 float glfwObject::getRotationY()
 {
-    return glfwObject::RotationY;
+    return RotationY;
 }
 void glfwObject::glfwDrawTorus(int numMajor, int numMinor, float majorRadius, float minorRadius)
 {
