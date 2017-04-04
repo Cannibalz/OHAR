@@ -17,6 +17,8 @@
 #include "glm.h"
 #include <iostream>
 
+const glm::vec2 SCREEN_SIZE(800, 600);
+
 GLMmodel *Banana = NULL;
 GLubyte *BananaSKin = NULL;
 GLuint  textureID[1];
@@ -80,7 +82,7 @@ void readPPM(char *filename, ColorImage *image)
 void initTextureID()
 {
     ColorImage texture[1];
-    readPPM("/Users/TomCruise/Desktop/OHAR/Banana.ppm", &texture[0]);
+    readPPM("/Users/kaofan/Desktop/OHAR/Banana.ppm", &texture[0]);
     
     glGenTextures(1, &textureBanana);
     glBindTexture(GL_TEXTURE_2D, textureBanana);
@@ -102,14 +104,16 @@ glfwObject::glfwObject(string objFileName,string textureFileName)
     initTextureID();
 }
 void glfwObject::LoadTexture() {
-    //tdogl::Bitmap bmp = tdogl::Bitmap::bitmapFromFile(ResourcePath("wooden-crate.jpg"));
-    tdogl::Bitmap bmp = tdogl::Bitmap::bitmapFromFile("/Users/TomCruise/Desktop/OHAR/RS/resources/wooden-crate.jpg");
+
+    //cout << endl<<"-------" << ResourcePath("wooden-crate.jpg") <<"-------" << endl;
+    tdogl::Bitmap bmp = tdogl::Bitmap::bitmapFromFile("/Users/kaofan/Desktop/OHAR/RS/resources/wooden-crate.jpg");
     bmp.flipVertically();
     gTexture = new tdogl::Texture(bmp);
 }
 void glfwObject::LoadCube()
 {
     // make and bind the VAO
+    cout <<"++++++++"<< gVAO <<"++++++++" << endl;
     glGenVertexArrays(1, &gVAO);
     glBindVertexArray(gVAO);
     
@@ -233,7 +237,7 @@ void glfwObject::renderMesh(cv::Mat rotateMatrix,cv::Mat translationVector)
     glPushMatrix();
     
     glLoadIdentity();//移動中心
-    glBindTexture(GL_TEXTURE_2D, textureID[0]);
+    //glBindTexture(GL_TEXTURE_2D, textureID[0]);
     //glRotatef(glfwObject::getRotationX()/*+(float)record_x*/, 0.0, 1.0, 0.0);//以y軸當旋轉軸
     //glRotatef(glfwObject::getRotationY()/*+(float)record_y*/, 1.0, 0.0, 0.0);//以x軸當旋轉軸
     cv::Mat viewMatrix(4, 4, CV_64F);
@@ -276,11 +280,11 @@ void glfwObject::renderMesh(cv::Mat rotateMatrix,cv::Mat translationVector)
     
     glEnd();
     glColor4ub(255,255,0,255);
-    glBindTexture(GL_TEXTURE_2D, textureBanana);
+    //glBindTexture(GL_TEXTURE_2D, textureBanana);
     std::vector<float> vertices, normals;
     
     GLuint list_id; //obj list
-    Banana = glmReadOBJ("/Users/TomCruise/Desktop/OHAR/Banana.obj");
+    Banana = glmReadOBJ("/Users/kaofan/Desktop/OHAR/Banana.obj");
     glmUnitize(Banana);
     
     

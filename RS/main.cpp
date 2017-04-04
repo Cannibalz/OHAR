@@ -6,37 +6,48 @@
 ///////////////////////////////////////////////////////////
 
 // First include the librealsense C++ header file
+//Realsense lib
 #include <librealsense/rs.hpp>
-#include <cstdio>
+//opengl Third-party
 #include <GL/glew.h>
-#include <GLUT/glut.h>
-
-// Also include GLFW to allow for graphical display
 #include <glm/glm.hpp>
 #include <GLFW/glfw3.h>
-#include <math.h>
-#include <stdlib.h>
+//OpenCV
 #include <opencv/highgui.h>
 #include <opencv2/core.hpp>
 #include <opencv2/opencv.hpp>
 #include <opencv2/aruco.hpp>
+//C++ lib
+#include <cstdio>
+#include <math.h>
+#include <stdlib.h>
+#include <cassert>
+#include <iostream>
+#include <stdexcept>
+#include <cmath>
+//other .hpp
+#include "platform.hpp"
 #include "glfwObject.hpp"
 #include "realsenseController.hpp"
 #include "openCVController.hpp"
-
-#include "tdogl/Program.h"
-#include "tdogl/Texture.h"
-
+#include "Program.h"
+#include "Texture.h"
 using namespace cv;
 using namespace std;
+// constants
 
+// globals
+//GLFWwindow* gWindow = NULL;
+//tdogl::Program* gProgram = NULL;
+//GLuint gVAO = 0;
+//GLuint gVBO = 0;
 glfwObject renderer = glfwObject();
 int main(int argc, char * argv[])
 {
     realSense rs;
     ipcv IPCV;
     glfwInit();
-    GLFWwindow * win = glfwCreateWindow(1280,480, "librealsense tutorial #2", nullptr, nullptr);
+    GLFWwindow * win = glfwCreateWindow(320,240, "librealsense tutorial #2", nullptr, nullptr);
     glfwMakeContextCurrent(win);
     while(!glfwWindowShouldClose(win))
     {
@@ -44,19 +55,21 @@ int main(int argc, char * argv[])
         glfwPollEvents();
         rs.waitForNextFrame();
         Mat color = rs.getColorImage();
-        imshow("color",color);
+        imshow("depth",rs.getDepthImage());
+        imshow("dppth2",IPCV.SobelEdgeDetect(rs.getDepthImage()));
         IPCV.RefreshFrame(color);
         IPCV.DetectAndDrawMarkers();
         glClear(GL_COLOR_BUFFER_BIT);
         glPixelZoom(1, -1);
         // Display depth data by linearly mapping depth between 0 and 2 meters to the red channel
         glRasterPos2f(-1, 1);
+        glDrawPixels(640, 480, GL_BGR, GL_UNSIGNED_BYTE, IPCV.getImage().data);
         //glPixelTransferf(GL_RED_SCALE, 0xFFFF * dev->get_depth_scale() / 2.0f);
-        glDrawPixels(640, 480, GL_LUMINANCE, GL_UNSIGNED_BYTE, rs.getDepthImage().data);
+        //glDrawPixels(640, 480, GL_LUMINANCE, GL_UNSIGNED_BYTE, rs.getDepthImage().data);
         //glPixelTransferf(GL_RED_SCALE, 1.0f);
         // Display color image as RGB triples
-        glRasterPos2f(0, 1);
-        glDrawPixels(640, 480, GL_BGR, GL_UNSIGNED_BYTE, IPCV.getImage().data);
+        //glRasterPos2f(0, 1);
+        //glDrawPixels(640, 480, GL_BGR, GL_UNSIGNED_BYTE, IPCV.getImage().data);
         if(IPCV.getIDs().size()>0 && IPCV.getIDs()[0]==228)
             {
                 for(int i = 0;i<IPCV.getIDs().size();i++)
@@ -70,9 +83,10 @@ int main(int argc, char * argv[])
                         oneTvecs = IPCV.getTvec(i);
                     }
                     Rodrigues(oneRvecs, rotMat);
-                    //renderer.renderMesh(rotMat,oneTvecs);
                     renderer.LoadTexture();
-                    renderer.LoadCube();
+                    renderer.renderMesh(rotMat,oneTvecs);
+                    
+                    //renderer.LoadCube();
                 }
             }
         glfwSwapBuffers(win);
