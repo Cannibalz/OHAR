@@ -27,6 +27,7 @@ public:
     Mat getImage();
     Vec3d getRvec(int);
     Vec3d getTvec(int);
+    Mat SobelEdgeDetect(Mat);
 private:
     Mat ARImage;
     Mat inputImage;
