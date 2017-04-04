@@ -154,6 +154,9 @@
 		4CC859291E8E3948006EE070 /* libGLEW.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC859261E8E3948006EE070 /* libGLEW.2.0.dylib */; };
 		4CC8592A1E8E3948006EE070 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC859271E8E3948006EE070 /* libGLEW.a */; };
 		4CC8593B1E8E4936006EE070 /* platform_osx.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4CC8593A1E8E4936006EE070 /* platform_osx.mm */; };
+		AA04A4DB1E9391ED00ADEF23 /* fragment-shader.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA04A4D71E9391D400ADEF23 /* fragment-shader.txt */; };
+		AA04A4DC1E9391EF00ADEF23 /* vertex-shader.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA04A4D81E9391D400ADEF23 /* vertex-shader.txt */; };
+		AA04A4DD1E93920800ADEF23 /* wooden-crate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AA04A4D91E9391D400ADEF23 /* wooden-crate.jpg */; };
 		AA2EB78D1E82710E00C91148 /* libglm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C50B3F71E6EAA4300BD8E26 /* libglm.a */; };
 		AA2EB78E1E82710E00C91148 /* libglm.la in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C50B3F81E6EAA4300BD8E26 /* libglm.la */; };
 /* End PBXBuildFile section */
@@ -162,8 +165,8 @@
 		4C14A58D1E66C94D00A01E5F /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			dstPath = usr/share/man/man1;
+			dstSubfolderSpec = 16;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
@@ -337,6 +340,9 @@
 		4CC8593D1E8E49DF006EE070 /* fragment-shader.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "fragment-shader.txt"; sourceTree = "<group>"; };
 		4CC8593E1E8E49DF006EE070 /* vertex-shader.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "vertex-shader.txt"; sourceTree = "<group>"; };
 		4CC8593F1E8E49DF006EE070 /* wooden-crate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "wooden-crate.jpg"; sourceTree = "<group>"; };
+		AA04A4D71E9391D400ADEF23 /* fragment-shader.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "fragment-shader.txt"; sourceTree = "<group>"; };
+		AA04A4D81E9391D400ADEF23 /* vertex-shader.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "vertex-shader.txt"; sourceTree = "<group>"; };
+		AA04A4D91E9391D400ADEF23 /* wooden-crate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "wooden-crate.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -516,6 +522,7 @@
 		4C14A5911E66C94D00A01E5F /* RS */ = {
 			isa = PBXGroup;
 			children = (
+				AA04A4D61E9391D400ADEF23 /* resources */,
 				4CC859391E8E491D006EE070 /* platform.hpp */,
 				4CC8593A1E8E4936006EE070 /* platform_osx.mm */,
 				4CC859161E8E34AF006EE070 /* tdogl */,
@@ -717,6 +724,16 @@
 			path = resources;
 			sourceTree = "<group>";
 		};
+		AA04A4D61E9391D400ADEF23 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				AA04A4D71E9391D400ADEF23 /* fragment-shader.txt */,
+				AA04A4D81E9391D400ADEF23 /* vertex-shader.txt */,
+				AA04A4D91E9391D400ADEF23 /* wooden-crate.jpg */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -727,6 +744,7 @@
 				4C14A58B1E66C94D00A01E5F /* Sources */,
 				4C14A58C1E66C94D00A01E5F /* Frameworks */,
 				4C14A58D1E66C94D00A01E5F /* CopyFiles */,
+				AA04A4DA1E9391E200ADEF23 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -769,6 +787,19 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA04A4DA1E9391E200ADEF23 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA04A4DB1E9391ED00ADEF23 /* fragment-shader.txt in Resources */,
+				AA04A4DC1E9391EF00ADEF23 /* vertex-shader.txt in Resources */,
+				AA04A4DD1E93920800ADEF23 /* wooden-crate.jpg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4C14A58B1E66C94D00A01E5F /* Sources */ = {
