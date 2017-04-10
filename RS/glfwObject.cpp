@@ -242,7 +242,7 @@ void glfwObject::renderMesh(cv::Mat rotateMatrix,cv::Mat translationVector)
     cout << "transV 0:" << translationVector.at<double>(0,0) << " 1:" << translationVector.at<double>(0,1) << " 2:" << translationVector.at<double>(0,2) << endl;
     cv::Mat T(4, 4, CV_64F);
     ////
-    
+    //test
     cv::Mat viewMatrix(4, 4, CV_64F);
     
     for(unsigned int row=0; row<3; ++row)
