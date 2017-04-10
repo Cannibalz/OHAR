@@ -15,6 +15,7 @@
 #include <math.h>
 #include <GLFW/glfw3.h>
 #include "glm.h"
+#include "Ppm.h"
 #include <iostream>
 
 GLMmodel *Banana = NULL;
@@ -297,12 +298,14 @@ void glfwObject::renderMesh(cv::Mat rotateMatrix,cv::Mat translationVector)
     std::vector<float> vertices, normals;
     
     GLuint list_id; //obj list
+    Image::Ppm ppm;
+    ppm.read("/Users/TomCruise/Desktop/OHAR/Banana.ppm");
+    const unsigned char* ppmp = ppm.getData();
     Banana = glmReadOBJ("/Users/TomCruise/Desktop/OHAR/Banana.obj");
     glmUnitize(Banana);
-    
-    
-    list_id = glmList(Banana, GLM_MATERIAL | GLM_SMOOTH);
-    glCallList(list_id);    //顯示list中obj
+    glmDraw(Banana, GLM_SMOOTH | GLM_MATERIAL);
+    //list_id = glmList(Banana, GLM_MATERIAL | GLM_SMOOTH);
+    //glCallList(list_id);    //顯示list中obj
     //glfwObject::glfwDrawTorus(10, 10, 0.5, .2);
     
     glPopMatrix();
