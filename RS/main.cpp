@@ -29,43 +29,8 @@
 
 using namespace cv;
 using namespace std;
-int old_rot_x=0;   //剛按下滑鼠時的視窗座標
-int old_rot_y=0;
 
-int rot_x=0;      //拖曳後的相對座標，用這決定要旋轉幾度
-int rot_y=0;
-
-int record_x=0;      //紀錄上一次旋轉的角度
-int record_y=0;
-void WindowSize(int , int );            //負責視窗及繪圖內容的比例
-void Keyboard(unsigned char , int, int );   //獲取鍵盤輸入
-void Mouse(int , int , int , int );         //獲取滑鼠按下和放開時的訊息
-void MotionMouse(int , int );            //獲取滑鼠按下期間的訊息
-void Display(void);
 glfwObject renderer = glfwObject();
-static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos) //滑鼠控制
-{
-    renderer.mouseMoveHanding(xpos, ypos);
-}
-Mat SobelEdgeDetect(Mat inputImage)
-{
-    Mat SobelImage; //test
-    if(inputImage.type() == CV_8UC3)
-    {
-        cvtColor(inputImage, inputImage, CV_BGR2GRAY);
-    }
-    GaussianBlur(inputImage, inputImage, Size(3, 3), 0, 0);
-    Mat grad_x, grad_y;
-    Mat abs_grad_x, abs_grad_y;
-    Sobel(inputImage, grad_x, CV_16S, 1, 0, 3, 1, 0, BORDER_DEFAULT);
-    convertScaleAbs(grad_x, abs_grad_x);  //轉成CV_8U
-    Sobel(inputImage, grad_y, CV_16S, 0, 1, 3, 1, 0, BORDER_DEFAULT);
-    convertScaleAbs(grad_y, abs_grad_y);
-    Mat dst;
-    addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, dst);
-    threshold(dst, SobelImage, 80, 255, THRESH_BINARY | THRESH_OTSU);
-    return SobelImage;
-}
 int main(int argc, char * argv[])
 {
     realSense rs;

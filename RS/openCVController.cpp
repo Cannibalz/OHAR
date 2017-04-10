@@ -55,6 +55,25 @@ void ipcv::DetectAndDrawMarkers()
         }
     }
 }
+Mat ipcv::SobelEdgeDetect(Mat inputImage)
+{
+    Mat SobelImage; //test
+    if(inputImage.type() == CV_8UC3)
+    {
+        cvtColor(inputImage, inputImage, CV_BGR2GRAY);
+    }
+    GaussianBlur(inputImage, inputImage, Size(3, 3), 0, 0);
+    Mat grad_x, grad_y;
+    Mat abs_grad_x, abs_grad_y;
+    Sobel(inputImage, grad_x, CV_16S, 1, 0, 3, 1, 0, BORDER_DEFAULT);
+    convertScaleAbs(grad_x, abs_grad_x);  //轉成CV_8U
+    Sobel(inputImage, grad_y, CV_16S, 0, 1, 3, 1, 0, BORDER_DEFAULT);
+    convertScaleAbs(grad_y, abs_grad_y);
+    Mat dst;
+    addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, dst);
+    threshold(dst, SobelImage, 80, 255, THRESH_BINARY | THRESH_OTSU);
+    return SobelImage;
+}
 vector<int> ipcv::getIDs()
 {
     return ids;
