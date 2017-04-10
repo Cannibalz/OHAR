@@ -45,7 +45,7 @@ void ipcv::DetectAndDrawMarkers()
         {
             oneRvecs.row(a).col(0) = rvecs[0][a];
             oneTvecs = tvecs[0];
-            cout << oneTvecs.at<double>(0,0) << "," << oneTvecs.at<double>(0,1) << "," << oneTvecs.at<double>(0,2);
+            //cout << oneTvecs.at<double>(0,0) << "," << oneTvecs.at<double>(0,1) << "," << oneTvecs.at<double>(0,2);
         }
         Rodrigues(oneRvecs, rotMat);
         

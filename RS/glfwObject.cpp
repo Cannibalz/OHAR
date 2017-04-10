@@ -15,6 +15,7 @@
 #include <math.h>
 #include <GLFW/glfw3.h>
 #include "glm.h"
+#include "Ppm.h"
 #include <iostream>
 
 const glm::vec2 SCREEN_SIZE(800, 600);
@@ -247,10 +248,21 @@ void glfwObject::renderMesh(cv::Mat rotateMatrix,cv::Mat translationVector)
         for(unsigned int col=0; col<3; ++col)
         {
             viewMatrix.at<double>(row, col) = rotateMatrix.at<double>(row, col);
+            if (row > 0)
+            {
+                viewMatrix.at<double>(row, col) = -viewMatrix.at<double>(row, col);//!y,z數值
+            }
         }
-        viewMatrix.at<double>(row, 3) = translationVector.at<double>(row, 0);
+        viewMatrix.at<double>(row, 3) = translationVector.at<double>(0, row);
+        viewMatrix.at<double>(row, 3) = 0;
+    }
+    for(int i = 0;i<3;i++)
+    {
+        viewMatrix.at<double>(3, i) = 0;
     }
     viewMatrix.at<double>(3, 3) = 2.0f; //縮放（數值越大圖越小）
+    
+    
     
     cv::Mat glViewMatrix = cv::Mat::zeros(4, 4, CV_64F);
     cv::transpose(viewMatrix , glViewMatrix);
@@ -286,10 +298,9 @@ void glfwObject::renderMesh(cv::Mat rotateMatrix,cv::Mat translationVector)
     GLuint list_id; //obj list
     Banana = glmReadOBJ("/Users/kaofan/Desktop/OHAR/Banana.obj");
     glmUnitize(Banana);
-    
-    
-    list_id = glmList(Banana, GLM_MATERIAL | GLM_SMOOTH);
-    glCallList(list_id);    //顯示list中obj
+    glmDraw(Banana, GLM_SMOOTH | GLM_MATERIAL);
+    //list_id = glmList(Banana, GLM_MATERIAL | GLM_SMOOTH);
+    //glCallList(list_id);    //顯示list中obj
     //glfwObject::glfwDrawTorus(10, 10, 0.5, .2);
     
     glPopMatrix();
