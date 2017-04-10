@@ -234,8 +234,15 @@ void glfwObject::renderMesh(cv::Mat rotateMatrix,cv::Mat translationVector)
     
     glLoadIdentity();//移動中心
     glBindTexture(GL_TEXTURE_2D, textureID[0]);
-    //glRotatef(glfwObject::getRotationX()/*+(float)record_x*/, 0.0, 1.0, 0.0);//以y軸當旋轉軸
-    //glRotatef(glfwObject::getRotationY()/*+(float)record_y*/, 1.0, 0.0, 0.0);//以x軸當旋轉軸
+    
+    ////
+    rotateMatrix.inv();
+    cout << "transV ori 0:" << translationVector.at<double>(0,0) << " 1:" << translationVector.at<double>(0,1) << " 2:" << translationVector.at<double>(0,2) << endl;
+    translationVector = -rotateMatrix*translationVector;
+    cout << "transV 0:" << translationVector.at<double>(0,0) << " 1:" << translationVector.at<double>(0,1) << " 2:" << translationVector.at<double>(0,2) << endl;
+    cv::Mat T(4, 4, CV_64F);
+    ////
+    
     cv::Mat viewMatrix(4, 4, CV_64F);
     
     for(unsigned int row=0; row<3; ++row)
@@ -243,10 +250,21 @@ void glfwObject::renderMesh(cv::Mat rotateMatrix,cv::Mat translationVector)
         for(unsigned int col=0; col<3; ++col)
         {
             viewMatrix.at<double>(row, col) = rotateMatrix.at<double>(row, col);
+            if (row > 0)
+            {
+                viewMatrix.at<double>(row, col) = -viewMatrix.at<double>(row, col);//!y,z數值
+            }
         }
-        viewMatrix.at<double>(row, 3) = translationVector.at<double>(row, 0);
+        viewMatrix.at<double>(row, 3) = translationVector.at<double>(0, row);
+        viewMatrix.at<double>(row, 3) = 0;
+    }
+    for(int i = 0;i<3;i++)
+    {
+        viewMatrix.at<double>(3, i) = 0;
     }
     viewMatrix.at<double>(3, 3) = 2.0f; //縮放（數值越大圖越小）
+    
+    
     
     cv::Mat glViewMatrix = cv::Mat::zeros(4, 4, CV_64F);
     cv::transpose(viewMatrix , glViewMatrix);
@@ -276,7 +294,6 @@ void glfwObject::renderMesh(cv::Mat rotateMatrix,cv::Mat translationVector)
     
     glEnd();
     glColor4ub(255,255,0,255);
-    glBindTexture(GL_TEXTURE_2D, textureBanana);
     std::vector<float> vertices, normals;
     
     GLuint list_id; //obj list
