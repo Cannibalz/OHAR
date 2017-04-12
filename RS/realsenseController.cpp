@@ -12,7 +12,7 @@ realSense::realSense() try
 {
     printf("There are %d connected RealSense devices.\n", ctx.get_device_count());
     if(ctx.get_device_count() == 0)
-    {ㄒ
+    {
         printf("no device connected");
     }
     
