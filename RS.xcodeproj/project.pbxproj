@@ -155,6 +155,7 @@
 		4CC8592A1E8E3948006EE070 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC859271E8E3948006EE070 /* libGLEW.a */; };
 		4CC8593B1E8E4936006EE070 /* platform_osx.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4CC8593A1E8E4936006EE070 /* platform_osx.mm */; };
 		4CF743AA1E9BB52100B704A0 /* Ppm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CF743A81E9BB52100B704A0 /* Ppm.cpp */; };
+		4CF743AF1E9E47DD00B704A0 /* Toilet.obj in Resources */ = {isa = PBXBuildFile; fileRef = 4CF743AE1E9E47DD00B704A0 /* Toilet.obj */; };
 		AA04A4DB1E9391ED00ADEF23 /* fragment-shader.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA04A4D71E9391D400ADEF23 /* fragment-shader.txt */; };
 		AA04A4DC1E9391EF00ADEF23 /* vertex-shader.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA04A4D81E9391D400ADEF23 /* vertex-shader.txt */; };
 		AA04A4DD1E93920800ADEF23 /* wooden-crate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AA04A4D91E9391D400ADEF23 /* wooden-crate.jpg */; };
@@ -343,6 +344,7 @@
 		4CC8593F1E8E49DF006EE070 /* wooden-crate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "wooden-crate.jpg"; sourceTree = "<group>"; };
 		4CF743A81E9BB52100B704A0 /* Ppm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ppm.cpp; sourceTree = "<group>"; };
 		4CF743A91E9BB52100B704A0 /* Ppm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ppm.h; sourceTree = "<group>"; };
+		4CF743AE1E9E47DD00B704A0 /* Toilet.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Toilet.obj; sourceTree = "<group>"; };
 		AA04A4D71E9391D400ADEF23 /* fragment-shader.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "fragment-shader.txt"; sourceTree = "<group>"; };
 		AA04A4D81E9391D400ADEF23 /* vertex-shader.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "vertex-shader.txt"; sourceTree = "<group>"; };
 		AA04A4D91E9391D400ADEF23 /* wooden-crate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "wooden-crate.jpg"; sourceTree = "<group>"; };
@@ -732,6 +734,7 @@
 		AA04A4D61E9391D400ADEF23 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				4CF743AE1E9E47DD00B704A0 /* Toilet.obj */,
 				AA04A4D71E9391D400ADEF23 /* fragment-shader.txt */,
 				AA04A4D81E9391D400ADEF23 /* vertex-shader.txt */,
 				AA04A4D91E9391D400ADEF23 /* wooden-crate.jpg */,
@@ -798,6 +801,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CF743AF1E9E47DD00B704A0 /* Toilet.obj in Resources */,
 				AA04A4DB1E9391ED00ADEF23 /* fragment-shader.txt in Resources */,
 				AA04A4DC1E9391EF00ADEF23 /* vertex-shader.txt in Resources */,
 				AA04A4DD1E93920800ADEF23 /* wooden-crate.jpg in Resources */,

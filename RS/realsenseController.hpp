@@ -23,6 +23,8 @@ public:
     realSense();
     Mat getColorImage();
     Mat getDepthImage();
+    Mat getAlignedD2C();
+    Mat getAlignedC2D();
     void waitForNextFrame();
     void stop();
 private:

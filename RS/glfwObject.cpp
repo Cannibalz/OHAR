@@ -301,6 +301,7 @@ void glfwObject::renderMesh(cv::Mat rotateMatrix,cv::Mat translationVector)
     Image::Ppm ppm;
     ppm.read("/Users/TomCruise/Desktop/OHAR/Banana.ppm");
     const unsigned char* ppmp = ppm.getData();
+    
     Banana = glmReadOBJ("/Users/TomCruise/Desktop/OHAR/Banana.obj");
     glmUnitize(Banana);
     glmDraw(Banana, GLM_SMOOTH | GLM_MATERIAL);

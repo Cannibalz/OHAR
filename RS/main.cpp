@@ -44,8 +44,11 @@ int main(int argc, char * argv[])
         glfwPollEvents();
         rs.waitForNextFrame();
         Mat color = rs.getColorImage();
-        imshow("color",color);
-        imshow("depth",rs.getDepthImage());
+        Mat color2 = rs.getColorImage();
+        Mat DepthSobel = IPCV.SobelEdgeDetect(rs.getDepthImage());
+        Mat colorDS;
+        imshow("d",rs.getDepthImage());
+        imshow("c2",rs.getAlignedC2D());
         IPCV.RefreshFrame(color);
         IPCV.DetectAndDrawMarkers();
         glClear(GL_COLOR_BUFFER_BIT);
