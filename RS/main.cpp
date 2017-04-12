@@ -6,30 +6,41 @@
 ///////////////////////////////////////////////////////////
 
 // First include the librealsense C++ header file
+//Realsense lib
 #include <librealsense/rs.hpp>
-#include <cstdio>
+//opengl Third-party
 #include <GL/glew.h>
-#include <GLUT/glut.h>
-
-// Also include GLFW to allow for graphical display
 #include <glm/glm.hpp>
 #include <GLFW/glfw3.h>
-#include <math.h>
-#include <stdlib.h>
+//OpenCV
 #include <opencv/highgui.h>
 #include <opencv2/core.hpp>
 #include <opencv2/opencv.hpp>
 #include <opencv2/aruco.hpp>
+//C++ lib
+#include <cstdio>
+#include <math.h>
+#include <stdlib.h>
+#include <cassert>
+#include <iostream>
+#include <stdexcept>
+#include <cmath>
+//other .hpp
+#include "platform.hpp"
 #include "glfwObject.hpp"
 #include "realsenseController.hpp"
 #include "openCVController.hpp"
-
-#include "tdogl/Program.h"
-#include "tdogl/Texture.h"
-
+#include "Program.h"
+#include "Texture.h"
 using namespace cv;
 using namespace std;
+// constants
 
+// globals
+//GLFWwindow* gWindow = NULL;
+//tdogl::Program* gProgram = NULL;
+//GLuint gVAO = 0;
+//GLuint gVBO = 0;
 glfwObject renderer = glfwObject();
 int main(int argc, char * argv[])
 {
@@ -55,8 +66,8 @@ int main(int argc, char * argv[])
         glPixelZoom(1, -1);
         // Display depth data by linearly mapping depth between 0 and 2 meters to the red channel
         glRasterPos2f(-1, 1);
-        //glPixelTransferf(GL_RED_SCALE, 0xFFFF * dev->get_depth_scale() / 2.0f);
         glDrawPixels(640, 480, GL_BGR, GL_UNSIGNED_BYTE, IPCV.getImage().data);
+        //glPixelTransferf(GL_RED_SCALE, 0xFFFF * dev->get_depth_scale() / 2.0f);
         //glDrawPixels(640, 480, GL_LUMINANCE, GL_UNSIGNED_BYTE, rs.getDepthImage().data);
         //glPixelTransferf(GL_RED_SCALE, 1.0f);
         // Display color image as RGB triples
@@ -75,8 +86,9 @@ int main(int argc, char * argv[])
                         oneTvecs = IPCV.getTvec(i);
                     }
                     Rodrigues(oneRvecs, rotMat);
+                    renderer.LoadTexture();
                     renderer.renderMesh(rotMat,oneTvecs);
-                    //renderer.LoadTexture();
+                    
                     //renderer.LoadCube();
                 }
             }

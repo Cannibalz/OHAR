@@ -150,17 +150,15 @@
 		4CC859201E8E34AF006EE070 /* Program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CC859191E8E34AF006EE070 /* Program.cpp */; };
 		4CC859211E8E34AF006EE070 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CC8591B1E8E34AF006EE070 /* Shader.cpp */; };
 		4CC859221E8E34AF006EE070 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CC8591D1E8E34AF006EE070 /* Texture.cpp */; };
-		4CC859281E8E3948006EE070 /* libGLEW.2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC859251E8E3948006EE070 /* libGLEW.2.0.0.dylib */; };
-		4CC859291E8E3948006EE070 /* libGLEW.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC859261E8E3948006EE070 /* libGLEW.2.0.dylib */; };
-		4CC8592A1E8E3948006EE070 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC859271E8E3948006EE070 /* libGLEW.a */; };
 		4CC8593B1E8E4936006EE070 /* platform_osx.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4CC8593A1E8E4936006EE070 /* platform_osx.mm */; };
 		4CF743AA1E9BB52100B704A0 /* Ppm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CF743A81E9BB52100B704A0 /* Ppm.cpp */; };
 		4CF743AF1E9E47DD00B704A0 /* Toilet.obj in Resources */ = {isa = PBXBuildFile; fileRef = 4CF743AE1E9E47DD00B704A0 /* Toilet.obj */; };
 		AA04A4DB1E9391ED00ADEF23 /* fragment-shader.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA04A4D71E9391D400ADEF23 /* fragment-shader.txt */; };
 		AA04A4DC1E9391EF00ADEF23 /* vertex-shader.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA04A4D81E9391D400ADEF23 /* vertex-shader.txt */; };
 		AA04A4DD1E93920800ADEF23 /* wooden-crate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AA04A4D91E9391D400ADEF23 /* wooden-crate.jpg */; };
+		AA04A4DE1E93937800ADEF23 /* cameraParas.yml in Resources */ = {isa = PBXBuildFile; fileRef = 4CC857F41E8E0DC3006EE070 /* cameraParas.yml */; };
 		AA2EB78D1E82710E00C91148 /* libglm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C50B3F71E6EAA4300BD8E26 /* libglm.a */; };
-		AA2EB78E1E82710E00C91148 /* libglm.la in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C50B3F81E6EAA4300BD8E26 /* libglm.la */; };
+		AA506DDA1E93AB8600891574 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC859271E8E3948006EE070 /* libGLEW.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -348,6 +346,7 @@
 		AA04A4D71E9391D400ADEF23 /* fragment-shader.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "fragment-shader.txt"; sourceTree = "<group>"; };
 		AA04A4D81E9391D400ADEF23 /* vertex-shader.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "vertex-shader.txt"; sourceTree = "<group>"; };
 		AA04A4D91E9391D400ADEF23 /* wooden-crate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "wooden-crate.jpg"; sourceTree = "<group>"; };
+		AA506DDB1E93AB8600891574 /* libGLEW.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.dylib; path = ../../../../usr/local/lib/libGLEW.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -478,11 +477,8 @@
 				4C14A6A31E66F79A00A01E5F /* libopencv_xobjdetect.dylib in Frameworks */,
 				4C14A6A41E66F79A00A01E5F /* libopencv_xphoto.3.2.0.dylib in Frameworks */,
 				4C14A6A51E66F79A00A01E5F /* libopencv_xphoto.3.2.dylib in Frameworks */,
-				4CC859281E8E3948006EE070 /* libGLEW.2.0.0.dylib in Frameworks */,
-				4CC859291E8E3948006EE070 /* libGLEW.2.0.dylib in Frameworks */,
-				4CC8592A1E8E3948006EE070 /* libGLEW.a in Frameworks */,
+				AA506DDA1E93AB8600891574 /* libGLEW.a in Frameworks */,
 				AA2EB78D1E82710E00C91148 /* libglm.a in Frameworks */,
-				AA2EB78E1E82710E00C91148 /* libglm.la in Frameworks */,
 				4C14A6A61E66F79A00A01E5F /* libopencv_xphoto.dylib in Frameworks */,
 				4C14A5B01E66CE6D00A01E5F /* OpenGL.framework in Frameworks */,
 				4C14A5AC1E66CCD000A01E5F /* libglfw.3.2.dylib in Frameworks */,
@@ -546,6 +542,7 @@
 		4C14A5991E66CA6700A01E5F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AA506DDB1E93AB8600891574 /* libGLEW.dylib */,
 				4CC859251E8E3948006EE070 /* libGLEW.2.0.0.dylib */,
 				4CC859261E8E3948006EE070 /* libGLEW.2.0.dylib */,
 				4CC859271E8E3948006EE070 /* libGLEW.a */,
