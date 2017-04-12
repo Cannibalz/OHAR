@@ -47,7 +47,7 @@ int main(int argc, char * argv[])
     realSense rs;
     ipcv IPCV;
     glfwInit();
-    GLFWwindow * win = glfwCreateWindow(320,240, "librealsense tutorial #2", nullptr, nullptr);
+    GLFWwindow * win = glfwCreateWindow(640,480, "librealsense tutorial #2", nullptr, nullptr);
     glfwMakeContextCurrent(win);
     while(!glfwWindowShouldClose(win))
     {
@@ -55,8 +55,7 @@ int main(int argc, char * argv[])
         glfwPollEvents();
         rs.waitForNextFrame();
         Mat color = rs.getColorImage();
-        imshow("depth",rs.getDepthImage());
-        imshow("dppth2",IPCV.SobelEdgeDetect(rs.getDepthImage()));
+        imshow("depth",rs.getColorImage());
         IPCV.RefreshFrame(color);
         IPCV.DetectAndDrawMarkers();
         glClear(GL_COLOR_BUFFER_BIT);
