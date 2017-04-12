@@ -83,7 +83,7 @@ void readPPM(char *filename, ColorImage *image)
 void initTextureID()
 {
     ColorImage texture[1];
-    readPPM("/Users/kaofan/Desktop/OHAR/Banana.ppm", &texture[0]);
+    readPPM("/Users/TomCruise/Desktop/OHAR/Banana.ppm", &texture[0]);
     
     glGenTextures(1, &textureBanana);
     glBindTexture(GL_TEXTURE_2D, textureBanana);
@@ -107,7 +107,7 @@ glfwObject::glfwObject(string objFileName,string textureFileName)
 void glfwObject::LoadTexture() {
 
     //cout << endl<<"-------" << ResourcePath("wooden-crate.jpg") <<"-------" << endl;
-    tdogl::Bitmap bmp = tdogl::Bitmap::bitmapFromFile("/Users/kaofan/Desktop/OHAR/RS/resources/wooden-crate.jpg");
+    tdogl::Bitmap bmp = tdogl::Bitmap::bitmapFromFile("/Users/TomCruise/Desktop/OHAR/RS/resources/wooden-crate.jpg");
     bmp.flipVertically();
     gTexture = new tdogl::Texture(bmp);
 }
