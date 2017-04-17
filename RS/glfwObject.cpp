@@ -16,6 +16,7 @@
 #include <GLFW/glfw3.h>
 #include "glm.h"
 #include "Ppm.h"
+#include "stb_image.h"
 #include <iostream>
 
 const glm::vec2 SCREEN_SIZE(800, 600);
@@ -82,18 +83,18 @@ void readPPM(char *filename, ColorImage *image)
 }
 void initTextureID()
 {
-    ColorImage texture[1];
-    readPPM("/Users/TomCruise/Desktop/OHAR/Banana.ppm", &texture[0]);
-    
-    glGenTextures(1, &textureBanana);
-    glBindTexture(GL_TEXTURE_2D, textureBanana);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texture[0].xRes, texture[0].yRes, 0, GL_RGB, GL_UNSIGNED_BYTE, texture[0].pPixel);//(GL_TEXTURE_2D, 3, texture[0].xRes, texture[0].yRes, GL_RGB, GL_UNSIGNED_BYTE, texture[0].pPixel);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    //glGenerateMipmap(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, 0);
+//    ColorImage texture[1];
+//    readPPM("/Users/TomCruise/Desktop/OHAR/Banana.ppm", &texture[0]);
+//    
+//    glGenTextures(1, &textureBanana);
+//    glBindTexture(GL_TEXTURE_2D, textureBanana);
+//    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texture[0].xRes, texture[0].yRes, 0, GL_RGB, GL_UNSIGNED_BYTE, texture[0].pPixel);//(GL_TEXTURE_2D, 3, texture[0].xRes, texture[0].yRes, GL_RGB, GL_UNSIGNED_BYTE, texture[0].pPixel);
+//    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+//    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+//    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+//    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+//    //glGenerateMipmap(GL_TEXTURE_2D);
+//    glBindTexture(GL_TEXTURE_2D, 0);
 }
 glfwObject::glfwObject()
 {
@@ -299,13 +300,25 @@ void glfwObject::renderMesh(cv::Mat rotateMatrix,cv::Mat translationVector)
     Image::Ppm ppm;
     ppm.read("/Users/TomCruise/Desktop/OHAR/Banana.ppm");
     const unsigned char* ppmp = ppm.getData();
+
+    GLuint m_texture;
+    glGenTextures(1, &m_texture);
     
-    Banana = glmReadOBJ("/Users/TomCruise/Desktop/OHAR/Banana.obj");
-    glmUnitize(Banana);
-    glmDraw(Banana, GLM_SMOOTH | GLM_MATERIAL);
+    glBindTexture(GL_TEXTURE_2D, m_texture);
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, ppm.getWidth(), ppm.getHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, ppmp);
+    
+    
+    glBindTexture(GL_TEXTURE_2D, m_texture);
+    
+//    Banana = glmReadOBJ("/Users/TomCruise/Desktop/OHAR/Banana.obj");
+//    glmUnitize(Banana);
+//    glmDraw(Banana, GLM_SMOOTH | GLM_MATERIAL);
     //list_id = glmList(Banana, GLM_MATERIAL | GLM_SMOOTH);
     //glCallList(list_id);    //顯示list中obj
-    //glfwObject::glfwDrawTorus(10, 10, 0.5, .2);
+    glfwObject::glfwDrawTorus(10, 10, 0.5, .2);
     
     glPopMatrix();
     glBindTexture(GL_TEXTURE_2D, 0);

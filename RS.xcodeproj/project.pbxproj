@@ -156,7 +156,6 @@
 		AA04A4DB1E9391ED00ADEF23 /* fragment-shader.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA04A4D71E9391D400ADEF23 /* fragment-shader.txt */; };
 		AA04A4DC1E9391EF00ADEF23 /* vertex-shader.txt in Resources */ = {isa = PBXBuildFile; fileRef = AA04A4D81E9391D400ADEF23 /* vertex-shader.txt */; };
 		AA04A4DD1E93920800ADEF23 /* wooden-crate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AA04A4D91E9391D400ADEF23 /* wooden-crate.jpg */; };
-		AA04A4DE1E93937800ADEF23 /* cameraParas.yml in Resources */ = {isa = PBXBuildFile; fileRef = 4CC857F41E8E0DC3006EE070 /* cameraParas.yml */; };
 		AA2EB78D1E82710E00C91148 /* libglm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C50B3F71E6EAA4300BD8E26 /* libglm.a */; };
 		AA506DDA1E93AB8600891574 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC859271E8E3948006EE070 /* libGLEW.a */; };
 /* End PBXBuildFile section */
@@ -316,6 +315,7 @@
 		4C50B3FD1E6EAF4F00BD8E26 /* Banana.ppm */ = {isa = PBXFileReference; lastKnownFileType = file; path = Banana.ppm; sourceTree = "<group>"; };
 		4C50B4061E6FE24F00BD8E26 /* glfwObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = glfwObject.cpp; path = RS/glfwObject.cpp; sourceTree = "<group>"; };
 		4C50B4071E6FE24F00BD8E26 /* glfwObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = glfwObject.hpp; path = RS/glfwObject.hpp; sourceTree = "<group>"; };
+		4C5175C01EA06CCA0051EFC3 /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
 		4C74C2B81E8106EF004B8D56 /* ObjectLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObjectLoader.cpp; path = RS/ObjectLoader.cpp; sourceTree = "<group>"; };
 		4C74C2B91E8106EF004B8D56 /* ObjectLoader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ObjectLoader.hpp; path = RS/ObjectLoader.hpp; sourceTree = "<group>"; };
 		4CC857EE1E8D097D006EE070 /* realsenseController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = realsenseController.cpp; sourceTree = "<group>"; };
@@ -523,6 +523,7 @@
 		4C14A5911E66C94D00A01E5F /* RS */ = {
 			isa = PBXGroup;
 			children = (
+				4C5175C01EA06CCA0051EFC3 /* stb_image.h */,
 				4CF743A81E9BB52100B704A0 /* Ppm.cpp */,
 				4CF743A91E9BB52100B704A0 /* Ppm.h */,
 				AA04A4D61E9391D400ADEF23 /* resources */,
