@@ -10,8 +10,8 @@
 #define realsenseController_hpp
 
 #include <stdio.h>
-#include <librealsense/rs.hpp>
 #include <cstdio>
+#include <librealsense/rs.hpp>
 #include <opencv2/core.hpp>
 
 using namespace std;

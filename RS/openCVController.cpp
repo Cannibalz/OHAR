@@ -44,7 +44,9 @@ void ipcv::DetectAndDrawMarkers()
         for (int a = 0;a<3;a++)
         {
             oneRvecs.row(a).col(0) = rvecs[0][a];
-            oneTvecs = tvecs[0];
+            oneTvecs.at<double>(0,0) = tvecs.at(0)[0];
+            oneTvecs.at<double>(1,0) = tvecs.at(0)[1];
+            oneTvecs.at<double>(2.0) = tvecs.at(0)[2];
             //cout << oneTvecs.at<double>(0,0) << "," << oneTvecs.at<double>(0,1) << "," << oneTvecs.at<double>(0,2);
         }
         Rodrigues(oneRvecs, rotMat);
@@ -84,7 +86,17 @@ Vec3d ipcv::getRvec(int index)
 }
 Vec3d ipcv::getTvec(int index)
 {
-    return tvecs[index];
+    
+    cv::Mat oneTvecs(3,1,CV_64FC1);
+//    for (int a = 0;a<3;a++)
+//    {
+        oneTvecs.at<double>(0,0) = tvecs.at(0)[0];
+        oneTvecs.at<double>(1,0) = tvecs.at(0)[1];
+        oneTvecs.at<double>(2.0) = tvecs.at(0)[2];
+        cout << "oneTvecs" << oneTvecs.at<double>(0,0) << "," << oneTvecs.at<double>(0,1) << "," << oneTvecs.at<double>(0,2) << endl;
+//    }
+    //return tvecs[index];
+    return oneTvecs;
 }
 Mat ipcv::getImage()
 {

@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include <GLFW/glfw3.h>
+//#include
 #include "glm.h"
 #include "Ppm.h"
 #include "stb_image.h"
@@ -239,6 +239,10 @@ void glfwObject::renderMesh(cv::Mat rotateMatrix,cv::Mat translationVector)
     glPushMatrix();
     
     glLoadIdentity();//移動中心
+    cout << "translationVector:" << endl
+    << "0:" << translationVector.at<double>(0,0) << endl
+    << "1:" << translationVector.at<double>(1,0) << endl
+    << "2:" << translationVector.at<double>(2,0) << endl;
     //glBindTexture(GL_TEXTURE_2D, textureID[0]);
     //glRotatef(glfwObject::getRotationX()/*+(float)record_x*/, 0.0, 1.0, 0.0);//以y軸當旋轉軸
     //glRotatef(glfwObject::getRotationY()/*+(float)record_y*/, 1.0, 0.0, 0.0);//以x軸當旋轉軸
@@ -255,7 +259,7 @@ void glfwObject::renderMesh(cv::Mat rotateMatrix,cv::Mat translationVector)
             }
         }
         viewMatrix.at<double>(row, 3) = translationVector.at<double>(0, row);
-        viewMatrix.at<double>(row, 3) = 0;
+        //viewMatrix.at<double>(row, 3) = 0;
     }
     for(int i = 0;i<3;i++)
     {
@@ -313,9 +317,9 @@ void glfwObject::renderMesh(cv::Mat rotateMatrix,cv::Mat translationVector)
     
     glBindTexture(GL_TEXTURE_2D, m_texture);
     
-//    Banana = glmReadOBJ("/Users/TomCruise/Desktop/OHAR/Banana.obj");
-//    glmUnitize(Banana);
-//    glmDraw(Banana, GLM_SMOOTH | GLM_MATERIAL);
+    Banana = glmReadOBJ("/Users/TomCruise/Desktop/OHAR/Banana.obj");
+    glmUnitize(Banana);
+    glmDraw(Banana, GLM_SMOOTH | GLM_MATERIAL);
     //list_id = glmList(Banana, GLM_MATERIAL | GLM_SMOOTH);
     //glCallList(list_id);    //顯示list中obj
     glfwObject::glfwDrawTorus(10, 10, 0.5, .2);

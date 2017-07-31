@@ -44,6 +44,9 @@ using namespace std;
 glfwObject renderer = glfwObject();
 int main(int argc, char * argv[])
 {
+    int a[] = {0,1,2,3};
+    for(int i = 0;i<=sizeof(a);i++)
+        printf("%d",a[i]);
     realSense rs;
     ipcv IPCV;
     glfwInit();
@@ -62,7 +65,8 @@ int main(int argc, char * argv[])
         imshow("c2",rs.getAlignedC2D());
         IPCV.RefreshFrame(color);
         IPCV.DetectAndDrawMarkers();
-        glClear(GL_COLOR_BUFFER_BIT);
+        glEnable(GL_DEPTH_TEST);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glPixelZoom(1, -1);
         // Display depth data by linearly mapping depth between 0 and 2 meters to the red channel
         glRasterPos2f(-1, 1);
@@ -80,10 +84,14 @@ int main(int argc, char * argv[])
                     cv::Mat oneRvecs(3,1,CV_64FC1);
                     cv::Mat rotMat(4, 4, CV_64F);
                     cv::Mat oneTvecs(3,1,CV_64FC1);
+                    Vec3d tvec = IPCV.getTvec(i);
+                    //cout << "0:" <<tvec[0] << "1:" <<tvec[1] << "2:" <<tvec[2] << endl;
                     for (int a = 0;a<3;a++)
                     {
                         oneRvecs.row(a).col(0) = IPCV.getRvec(i)[a];
-                        oneTvecs = IPCV.getTvec(i);
+                        oneTvecs.at<double>(0,0) = tvec[0];
+                        oneTvecs.at<double>(1,0) = tvec[1];
+                        oneTvecs.at<double>(2,0) = tvec[2];
                     }
                     Rodrigues(oneRvecs, rotMat);
                     renderer.LoadTexture();
